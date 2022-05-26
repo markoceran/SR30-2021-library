@@ -190,7 +190,7 @@ public class Biblioteka {
 			File file = new File("src/fajlovi/" + imeFajla);
 			String content = "";
 			for (TipClanarine tip : listaTipovaClanarine) {
-				content += tip.getId() + "|" + tip.getNaziv() + "|" + tip.getCena() + "\n";
+				content += tip.getId() + "|" + tip.getNaziv() + "|" + tip.getCena() + "|" + tip.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -210,7 +210,7 @@ public class Biblioteka {
 				content += zaposleni.getId() + "|" + zaposleni.getIme() + "|" 
 						+ zaposleni.getPrezime() + "|" + zaposleni.getJMBG() + "|"
 						+ zaposleni.getAdresa() + "|" + zaposleni.getPol() + "|" + zaposleni.getKorisnickoIme() + "|" 
-						+ zaposleni.getKorisnickaLozinka() + zaposleni.getPlata() + "\n";
+						+ zaposleni.getKorisnickaLozinka() + zaposleni.getPlata() + "|" + zaposleni.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -229,7 +229,7 @@ public class Biblioteka {
 			File file = new File("src/fajlovi/" + imeFajla);
 			String content = "";
 			for (ZanrKnjige zanr : listaZanrova) {
-				content += zanr.getOznaka() + "|" + zanr.getOpis() + "\n";
+				content += zanr.getOznaka() + "|" + zanr.getOpis() + "|" + zanr.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -248,7 +248,7 @@ public class Biblioteka {
 			for (Knjiga knjiga : listaKnjiga) {
 				content += knjiga.getId() + "|" + knjiga.getNaslov() + "|"
 						+ knjiga.getOriginalniNaslov() + "|" + knjiga.getPisac() + "|"
-						+ knjiga.getGodinaObjavljivanja() + "|" + knjiga.getOpisKnjige() + "|" + knjiga.getZanr() + "|" + knjiga.getJezikOriginala() + "\n";
+						+ knjiga.getGodinaObjavljivanja() + "|" + knjiga.getOpisKnjige() + "|" + knjiga.getZanr() + "|" + knjiga.getJezikOriginala() + "|" + knjiga.isObrisan() + "\n";
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(content);
@@ -268,7 +268,7 @@ public class Biblioteka {
 						+ clan.getPrezime() + "|" + clan.getJMBG() + "|"
 						+ clan.getAdresa() + "|" + clan.getPol() + "|" + clan.getBrojClanskeKarte()
 						+ "|" + clan.getDatumPoslednjeUplate() + "|" + clan.getBrojMeseciClanarine() 
-						+ "|" + clan.isAktivan() + "|" + clan.getTipClanarine() + "\n";
+						+ "|" + clan.isAktivan() + "|" + clan.getTipClanarine() + "|" + clan.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -288,7 +288,7 @@ public class Biblioteka {
 			for (PrimerakKnjige primerak : listaPrimerakaKnjiga) {
 				content += primerak.getId() + "|" + primerak.getBrojStrana() + "|" 
 						+ primerak.isTvrdPovez() + "|" + primerak.getGodinaStampanja() + "|"
-						+ primerak.isIznajmljena() + "|" + primerak.getKnjigaKojojPrimerakPripada() + "|" + primerak.getJezikStampanja() + "\n";
+						+ primerak.isIznajmljena() + "|" + primerak.getKnjigaKojojPrimerakPripada() + "|" + primerak.getJezikStampanja() + "|" + primerak.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -307,7 +307,7 @@ public class Biblioteka {
 			for (Iznajmljivanje iznajmljivanje : listaIznajmljivanja) {
 				content += iznajmljivanje.getDatumIznajmljivanja() + "|" + iznajmljivanje.getDatumVracanja() + "|" 
 						+ iznajmljivanje.getZaposleni() + "|" + iznajmljivanje.getClan() + "|"
-						+ iznajmljivanje.getPrimerakKnjige() + "\n";
+						+ iznajmljivanje.getPrimerakKnjige() + "|" + iznajmljivanje.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -401,9 +401,10 @@ public class Biblioteka {
 				int id = Integer.parseInt(split[0]);
 				String naziv = split[1];
 				double cena = Double.parseDouble(split[2]);
+				boolean obrisan = Boolean.parseBoolean(split[3]);
 				
 				
-				TipClanarine tip = new TipClanarine(id, naziv, cena);
+				TipClanarine tip = new TipClanarine(id, naziv, cena, obrisan);
 				listaTipovaClanarine.add(tip);
 				
 			}
@@ -434,9 +435,10 @@ public class Biblioteka {
 				String korisnickoIme = split[6];
 				String korisnickaLozinka = split[7];
 				double plata = Double.parseDouble(split[8]);
+				boolean obrisan = Boolean.parseBoolean(split[9]);
 				
 				
-				Zaposleni zaposleni = new Zaposleni(id, ime, prezime, JMBG, adresa, pol, korisnickoIme, korisnickaLozinka, plata);
+				Zaposleni zaposleni = new Zaposleni(id, ime, prezime, JMBG, adresa, pol, korisnickoIme, korisnickaLozinka, plata, obrisan);
 				listaZaposlenih.add(zaposleni);
 				
 			}
@@ -459,9 +461,10 @@ public class Biblioteka {
 				
 				String oznaka = split[0];
 				String opis = split[1];
+				boolean obrisan = Boolean.parseBoolean(split[2]);
 				
 				
-				ZanrKnjige zanr = new ZanrKnjige(oznaka, opis);
+				ZanrKnjige zanr = new ZanrKnjige(oznaka, opis, obrisan);
 				listaZanrova.add(zanr);
 				
 			}
@@ -494,8 +497,10 @@ public class Biblioteka {
 				
 				String jezikOriginala = split[7];
 				
+				boolean obrisan = Boolean.parseBoolean(split[8]);
 				
-				Knjiga knjiga = new Knjiga(id, naslov, originalniNaslov, pisac, godinaObjavljivanja, opisKnjige, zanr, jezikOriginala);
+				
+				Knjiga knjiga = new Knjiga(id, naslov, originalniNaslov, pisac, godinaObjavljivanja, opisKnjige, zanr, jezikOriginala, obrisan);
 				listaKnjiga.add(knjiga);
 				
 			}
@@ -531,8 +536,10 @@ public class Biblioteka {
 				int tipClanarineId = Integer.parseInt(split[10]);
 				TipClanarine tipClanarine = (TipClanarine) pronadjiTipClanarine(tipClanarineId);
 				
+				boolean obrisan = Boolean.parseBoolean(split[11]);
 				
-				ClanBiblioteke clan = new ClanBiblioteke(id, ime, prezime, JMBG, adresa, pol, brojClanskeKarte, datumPoslednjeUplate, brojMeseciClanarine, aktivan, tipClanarine);
+				
+				ClanBiblioteke clan = new ClanBiblioteke(id, ime, prezime, JMBG, adresa, pol, brojClanskeKarte, datumPoslednjeUplate, brojMeseciClanarine, aktivan, tipClanarine, obrisan);
 				listaClanova.add(clan);
 				
 			}
@@ -564,8 +571,12 @@ public class Biblioteka {
 				
 				String jezikStampanja = split[6];
 				
+				boolean obrisan = Boolean.parseBoolean(split[7]);
 				
-				PrimerakKnjige primerak = new PrimerakKnjige(id, brojStrana, tvrdPovez, godinaStampanja, iznajmljena, knjigaKojojPrimerakPripada, jezikStampanja);
+				
+				
+				
+				PrimerakKnjige primerak = new PrimerakKnjige(id, brojStrana, tvrdPovez, godinaStampanja, iznajmljena, knjigaKojojPrimerakPripada, jezikStampanja, obrisan);
 				listaPrimerakaKnjiga.add(primerak);
 				
 			}
@@ -598,8 +609,10 @@ public class Biblioteka {
 				int PrimerakKnjigeId = Integer.parseInt(split[4]);
 				PrimerakKnjige primerakKnjige = (PrimerakKnjige) pronadjiPrimerak(PrimerakKnjigeId);
 				
+				boolean obrisan = Boolean.parseBoolean(split[5]);
 				
-				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(datumIznajmljivanja, datumVracanja, zaposleni, clan, primerakKnjige);
+				
+				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(datumIznajmljivanja, datumVracanja, zaposleni, clan, primerakKnjige, obrisan);
 				listaIznajmljivanja.add(iznajmljivanje);
 				
 			}
@@ -647,5 +660,114 @@ public class Biblioteka {
 		
 	}
 	
+	
+	/******************************************************************************************************/
+
+	
+	public void obrisiTipClanarine(TipClanarine tip) {
+		this.listaTipovaClanarine.remove(tip);
+	}
+	
+	public void obrisiZaposlenog(Zaposleni zaposleni) {
+		this.listaZaposlenih.remove(zaposleni);
+	}
+	
+	public void obrisiZanr(ZanrKnjige zanr) {
+		this.listaZanrova.remove(zanr);
+	}
+	
+	public void obrisiKnjigu(Knjiga knjiga) {
+		this.listaKnjiga.remove(knjiga);
+		
+	}
+	
+	public void obrisiClana(ClanBiblioteke clan) {
+		this.listaClanova.remove(clan);
+		
+	}
+	
+	public void obrisiPrimerakKnjige(PrimerakKnjige primerak) {
+		this.listaPrimerakaKnjiga.remove(primerak);
+		
+	}
+	
+	public void obrisiIznajmljivanje(Iznajmljivanje iznajmljivanje) {
+		this.listaIznajmljivanja.remove(iznajmljivanje);
+		
+	}
+	
+	
+	/******************************************************************************************************/
+	
+	
+	public ArrayList<TipClanarine> sviNeobrisaniTipovi() {
+		ArrayList<TipClanarine> neobrisani = new ArrayList<TipClanarine>();
+		for(TipClanarine tip : listaTipovaClanarine) {
+			if(!tip.isObrisan()) {
+				neobrisani.add(tip);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<Zaposleni> sviNeobrisaniZaposleni() {
+		ArrayList<Zaposleni> neobrisani = new ArrayList<Zaposleni>();
+		for(Zaposleni zap : listaZaposlenih) {
+			if(!zap.isObrisan()) {
+				neobrisani.add(zap);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<ZanrKnjige> sviNeobrisaniZanrovi() {
+		ArrayList<ZanrKnjige> neobrisani = new ArrayList<ZanrKnjige>();
+		for(ZanrKnjige zanr : listaZanrova) {
+			if(!zanr.isObrisan()) {
+				neobrisani.add(zanr);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<Knjiga> sveNeobrisaneKnjige() {
+		ArrayList<Knjiga> neobrisane = new ArrayList<Knjiga>();
+		for(Knjiga k : listaKnjiga) {
+			if(!k.isObrisan()) {
+				neobrisane.add(k);
+			}
+		}
+		return neobrisane;
+	}
+	
+	public ArrayList<ClanBiblioteke> sviNeobrisaniClanovi() {
+		ArrayList<ClanBiblioteke> neobrisani = new ArrayList<ClanBiblioteke>();
+		for(ClanBiblioteke c : listaClanova) {
+			if(!c.isObrisan()) {
+				neobrisani.add(c);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<PrimerakKnjige> sviNeobrisaniPrimerci() {
+		ArrayList<PrimerakKnjige> neobrisani = new ArrayList<PrimerakKnjige>();
+		for(PrimerakKnjige p : listaPrimerakaKnjiga) {
+			if(!p.isObrisan()) {
+				neobrisani.add(p);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<Iznajmljivanje> svaNeobrisanaIznajmljivanja() {
+		ArrayList<Iznajmljivanje> neobrisana = new ArrayList<Iznajmljivanje>();
+		for(Iznajmljivanje i : listaIznajmljivanja) {
+			if(!i.isObrisan()) {
+				neobrisana.add(i);
+			}
+		}
+		return neobrisana;
+	}
 	
 }

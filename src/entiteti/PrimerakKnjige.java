@@ -11,6 +11,7 @@ public class PrimerakKnjige {
     private boolean iznajmljena;
     private Knjiga knjigaKojojPrimerakPripada;
     private String jezikStampanja;
+    private boolean obrisan;
     
     
 	public PrimerakKnjige() {
@@ -22,11 +23,12 @@ public class PrimerakKnjige {
 		this.iznajmljena = false;
 		this.knjigaKojojPrimerakPripada = new Knjiga();
 		this.jezikStampanja = "";
+		this.obrisan = false;
 	}
 
 
 	public PrimerakKnjige(int id, int brojStrana, boolean tvrdPovez, int godinaStampanja, boolean iznajmljena,
-			Knjiga knjigaKojojPrimerakPripada, String jezikStampanja) {
+			Knjiga knjigaKojojPrimerakPripada, String jezikStampanja,boolean obrisan) {
 		super();
 		this.id = id;
 		this.brojStrana = brojStrana;
@@ -35,6 +37,7 @@ public class PrimerakKnjige {
 		this.iznajmljena = iznajmljena;
 		this.knjigaKojojPrimerakPripada = knjigaKojojPrimerakPripada;
 		this.jezikStampanja = jezikStampanja;
+		this.obrisan = obrisan;
 	}
 
 
@@ -106,6 +109,18 @@ public class PrimerakKnjige {
 	public void setJezikStampanja(String jezikStampanja) {
 		this.jezikStampanja = jezikStampanja;
 	}
+	
+	
+
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
 
 
 	@Override
@@ -113,7 +128,7 @@ public class PrimerakKnjige {
 		return "PrimerakKnjige [id=" + id + ", brojStrana=" + brojStrana + ", tvrdPovez=" + tvrdPovez
 				+ ", godinaStampanja=" + godinaStampanja + ", iznajmljena=" + iznajmljena
 				+ ", knjigaKojojPrimerakPripada=" + knjigaKojojPrimerakPripada + ", jezikStampanja=" + jezikStampanja
-				+ "]";
+				+ " , obrisan=" + obrisan + "]";
 	}
 	
 	

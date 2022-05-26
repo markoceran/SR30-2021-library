@@ -61,7 +61,8 @@ public class BibliotekaMain {
 		//System.out.println("Snimanje dodanih podataka: ");
 		//biblioteka.snimiClanove(CLANOVI_FAJL);
 		
-		
+		//biblioteka.obrisiTipClanarine(biblioteka.pronadjiTipClanarine(1));
+		//System.out.println(biblioteka.sviNeobrisaniTipovi());
 	
 	}
 	

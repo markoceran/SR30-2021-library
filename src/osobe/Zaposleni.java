@@ -7,19 +7,22 @@ public class Zaposleni extends Osoba {
     protected String korisnickaLozinka;
     protected double plata;
     
+    
 	public Zaposleni() {
 		super();
 		this.korisnickoIme = "";
 		this.korisnickaLozinka = "";
 		this.plata = 0;
+		
 	}
 
 	public Zaposleni(int id, String ime, String prezime, String jMBG, String adresa, Pol pol, String korisnickoIme,
-			String korisnickaLozinka, double plata) {
-		super(id, ime, prezime, jMBG, adresa, pol);
+			String korisnickaLozinka, double plata, boolean obrisan) {
+		super(id, ime, prezime, jMBG, adresa, pol, obrisan);
 		this.korisnickoIme = korisnickoIme;
 		this.korisnickaLozinka = korisnickaLozinka;
 		this.plata = plata;
+		
 	}
 
 	public String getKorisnickoIme() {
@@ -45,12 +48,15 @@ public class Zaposleni extends Osoba {
 	public void setPlata(double plata) {
 		this.plata = plata;
 	}
+	
+	
+	
 
 	@Override
 	public String toString() {
 		return "Zaposleni [korisnickoIme=" + korisnickoIme + ", korisnickaLozinka=" + korisnickaLozinka + ", plata="
 				+ plata + ", id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", JMBG=" + JMBG + ", adresa="
-				+ adresa + ", pol=" + pol + "]";
+				+ adresa + ", pol=" + pol + ", obrisan=" + obrisan + "]";
 	}
 
 

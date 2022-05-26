@@ -12,7 +12,7 @@ public class Bibliotekar extends Zaposleni {
 	public String toString() {
 		return "Bibliotekar [korisnickoIme=" + korisnickoIme + ", korisnickaLozinka=" + korisnickaLozinka + ", plata="
 				+ plata + ", id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", JMBG=" + JMBG + ", adresa="
-				+ adresa + ", pol=" + pol + "]";
+				+ adresa + ", pol=" + pol + ", obrisan=" + obrisan + "]";
 	}
     
 

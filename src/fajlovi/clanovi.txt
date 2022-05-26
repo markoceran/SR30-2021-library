@@ -1,2 +1,2 @@
-1|Milos|Petrovic|45463216546|Bulevar kneza Milosa 110, Novi Sad|1|001|2022-02-11|8|true|1
-2|Jovan|Markovic|87646631510|Bulevar kneza Milosa 80, Novi Sad|1|002|2022-03-08|12|true|2
+1|Milos|Petrovic|45463216546|Bulevar kneza Milosa 110, Novi Sad|1|001|2022-02-11|8|true|1|false
+2|Jovan|Markovic|87646631510|Bulevar kneza Milosa 80, Novi Sad|1|002|2022-03-08|12|true|2|false
