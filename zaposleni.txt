@@ -1,0 +1,2 @@
+1|Petar|Petrovic|265464165631|Bulevar kneza Milosa 56, Novi Sad|1|petarp|12345|60000
+2|Jovana|Jovanic|65465465416|Bulevar kneza Milosa 106, Novi Sad|0|jovanaj|678910|70000
