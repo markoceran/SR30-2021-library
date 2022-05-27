@@ -664,6 +664,18 @@ public class Biblioteka {
 	/******************************************************************************************************/
 
 	
+	public Zaposleni login(String korisnickoIme, String lozinka) {
+		for(Zaposleni zaposleni : listaZaposlenih) {
+			if(zaposleni.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
+					zaposleni.getKorisnickaLozinka().equals(lozinka) && !zaposleni.isObrisan()) {
+				return zaposleni;
+			}
+		}
+		return null;
+	}
+	
+	
+	
 	public void obrisiTipClanarine(TipClanarine tip) {
 		this.listaTipovaClanarine.remove(tip);
 	}
@@ -769,5 +781,7 @@ public class Biblioteka {
 		}
 		return neobrisana;
 	}
+	
+	
 	
 }

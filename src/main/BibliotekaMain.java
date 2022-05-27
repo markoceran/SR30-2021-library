@@ -7,6 +7,7 @@ import entiteti.Knjiga;
 import entiteti.PrimerakKnjige;
 import entiteti.TipClanarine;
 import entiteti.ZanrKnjige;
+import gui.LoginProzor;
 import osobe.ClanBiblioteke;
 import osobe.Pol;
 import osobe.Zaposleni;
@@ -42,11 +43,19 @@ public class BibliotekaMain {
 		biblioteka.ucitajIznajmljivanje(IZNAJMLJIVANJE_FAJL);
 		
 		
+		LoginProzor lp = new LoginProzor(biblioteka);
+		lp.setVisible(true);
+		
+		
+		
+		/*
+		
 		System.out.println("PODACI UCITANI IZ DATOTEKA:");
 		System.out.println("----------------------------------------------");
 		ispisiSvePodatke(biblioteka);
 		System.out.println("----------------------------------------------");
 		
+		*/
 		
 		
 		
@@ -73,7 +82,7 @@ public class BibliotekaMain {
 	/**************************************************************************************************************************/
 	
 	
-	public static void ispisiSvePodatke(Biblioteka biblioteka) {
+	/*public static void ispisiSvePodatke(Biblioteka biblioteka) {
 		
 		
 		for(Zaposleni zaposlen : biblioteka.getListaZaposlenih()) {
@@ -104,7 +113,7 @@ public class BibliotekaMain {
 			System.out.println(iznajmljivanje + "\n");
 		}
 		
-	}
+	}*/
 	
 	
 	/**************************************************************************************************************************/
