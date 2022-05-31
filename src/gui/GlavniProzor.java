@@ -19,6 +19,7 @@ import guiFormeZaPrikaz.ClanoviProzor;
 import guiFormeZaPrikaz.IznajmljivanjeProzor;
 import guiFormeZaPrikaz.KnjigeProzor;
 import guiFormeZaPrikaz.PrimerciKnjigaProzor;
+import guiFormeZaPrikaz.TipoviClanarineProzor;
 import guiFormeZaPrikaz.ZanroviProzor;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.BoxLayout;
@@ -141,6 +142,13 @@ public final class GlavniProzor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				IznajmljivanjeProzor i = new IznajmljivanjeProzor(biblioteka);
 				i.setVisible(true);
+			}
+		});
+		
+		tipoviClanarine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TipoviClanarineProzor t = new TipoviClanarineProzor(biblioteka);
+				t.setVisible(true);
 			}
 		});
 	}
