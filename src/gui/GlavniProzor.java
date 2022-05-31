@@ -15,6 +15,7 @@ import osobe.Zaposleni;
 import biblioteka.Biblioteka;
 
 import guiFormeZaPrikaz.ClanoviProzor;
+import guiFormeZaPrikaz.KnjigeProzor;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -37,6 +38,7 @@ public final class GlavniProzor extends JFrame {
 	private JMenuBar mainMenu = new JMenuBar();
 	private JMenu zanrovi = new JMenu("Žanrovi knjiga");
 	private JMenu tipoviClanarine = new JMenu("Tipovi članarine");
+	private JMenu bibliotekaMenu = new JMenu("Biblioteka");
 	
 	
 	private Biblioteka biblioteka;
@@ -67,6 +69,7 @@ public final class GlavniProzor extends JFrame {
 		setJMenuBar(mainMenu);
 		mainMenu.add(zanrovi);
 		mainMenu.add(tipoviClanarine);
+		mainMenu.add(bibliotekaMenu);
 		
 		
 		MigLayout mig = new MigLayout("wrap 1", "[250px:n,grow][360px:n,grow][250px:n]", "[200px:n,grow][50px:n][80px:n][80px:n][]");
@@ -104,6 +107,13 @@ public final class GlavniProzor extends JFrame {
 			}
 		});
 		
+		
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				KnjigeProzor k = new KnjigeProzor(biblioteka);
+				k.setVisible(true);
+			}
+		});
 		
 	}
 	
