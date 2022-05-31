@@ -16,6 +16,7 @@ import biblioteka.Biblioteka;
 
 import guiFormeZaPrikaz.ClanoviProzor;
 import guiFormeZaPrikaz.KnjigeProzor;
+import guiFormeZaPrikaz.PrimerciKnjigaProzor;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -100,6 +101,8 @@ public final class GlavniProzor extends JFrame {
 		getContentPane().add(btnNewButton_3, "cell 2 3,grow");
 		
 		getContentPane().add(btnNewButton_4, "cell 1 2 1 2,grow");
+		
+		
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClanoviProzor c = new ClanoviProzor(biblioteka);
@@ -112,6 +115,13 @@ public final class GlavniProzor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				KnjigeProzor k = new KnjigeProzor(biblioteka);
 				k.setVisible(true);
+			}
+		});
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PrimerciKnjigaProzor p = new PrimerciKnjigaProzor(biblioteka);
+				p.setVisible(true);
 			}
 		});
 		
