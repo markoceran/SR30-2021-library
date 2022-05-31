@@ -28,7 +28,7 @@ public class PrimerciKnjigaProzor extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PrimerciKnjigaProzor.class.getResource("/slike/rsz.png")));
 		this.biblioteka = biblioteka;
 		setTitle("Primerci knjiga");
-		setSize(1300, 400);
+		setSize(1150, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));

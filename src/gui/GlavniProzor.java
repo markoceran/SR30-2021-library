@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import osobe.Zaposleni;
 import biblioteka.Biblioteka;
@@ -17,6 +18,7 @@ import biblioteka.Biblioteka;
 import guiFormeZaPrikaz.ClanoviProzor;
 import guiFormeZaPrikaz.KnjigeProzor;
 import guiFormeZaPrikaz.PrimerciKnjigaProzor;
+import guiFormeZaPrikaz.ZanroviProzor;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -37,9 +39,10 @@ public final class GlavniProzor extends JFrame {
 	Image icon = Toolkit.getDefaultToolkit().getImage("src/slike/download.png");
 	
 	private JMenuBar mainMenu = new JMenuBar();
-	private JMenu zanrovi = new JMenu("Žanrovi knjiga");
-	private JMenu tipoviClanarine = new JMenu("Tipovi članarine");
-	private JMenu bibliotekaMenu = new JMenu("Biblioteka");
+	private JMenu vise = new JMenu("Više");
+	private JMenuItem zanrovi = new JMenuItem("Žanrovi knjiga");
+	private JMenuItem tipoviClanarine = new JMenuItem("Tipovi članarine");
+	private JMenuItem bibliotekaMenu = new JMenuItem("Biblioteka");
 	
 	
 	private Biblioteka biblioteka;
@@ -68,9 +71,10 @@ public final class GlavniProzor extends JFrame {
 	
 	private void gui() {
 		setJMenuBar(mainMenu);
-		mainMenu.add(zanrovi);
-		mainMenu.add(tipoviClanarine);
-		mainMenu.add(bibliotekaMenu);
+		mainMenu.add(vise);
+		vise.add(zanrovi);
+		vise.add(tipoviClanarine);
+		vise.add(bibliotekaMenu);
 		
 		
 		MigLayout mig = new MigLayout("wrap 1", "[250px:n,grow][360px:n,grow][250px:n]", "[200px:n,grow][50px:n][80px:n][80px:n][]");
@@ -125,6 +129,12 @@ public final class GlavniProzor extends JFrame {
 			}
 		});
 		
+		zanrovi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZanroviProzor z = new ZanroviProzor(biblioteka);
+				z.setVisible(true);
+			}
+		});
 	}
 	
 	
