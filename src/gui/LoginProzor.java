@@ -31,11 +31,12 @@ public class LoginProzor extends JFrame {
 	
 	
 	public LoginProzor(Biblioteka biblioteka) {
+		setResizable(false);
+		getContentPane().setBackground(new Color(240, 248, 255));
 		this.biblioteka = biblioteka;
 		setTitle("PRIJAVA");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setResizable(false);
 		setIconImage(icon);
 		initGUI();
 		initActions();
@@ -46,16 +47,16 @@ public class LoginProzor extends JFrame {
 	private void initGUI() {
 		
 		MigLayout mig = new MigLayout("wrap 1", "[]", "15[]20[]10[]10[]");
-		setLayout(mig);
+		getContentPane().setLayout(mig);
 		
-		add(lbPoruka);
-		add(lbKorisnickoIme);
-		add(txtKorisnickoIme);
-		add(lbLozinka);
-		add(pfLozinka);
-		add(new JLabel());
-		add(btnOk, "split 2");
-		add(btnCancel);
+		getContentPane().add(lbPoruka);
+		getContentPane().add(lbKorisnickoIme);
+		getContentPane().add(txtKorisnickoIme);
+		getContentPane().add(lbLozinka);
+		getContentPane().add(pfLozinka);
+		getContentPane().add(new JLabel());
+		getContentPane().add(btnOk, "split 2");
+		getContentPane().add(btnCancel);
 		
 	}
 

@@ -5,57 +5,108 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 import osobe.Zaposleni;
 import biblioteka.Biblioteka;
 
+import guiFormeZaPrikaz.ClanoviProzor;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
-public class GlavniProzor extends JFrame {
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
+import java.awt.Canvas;
+import javax.swing.JPanel;
+import java.awt.Panel;
+import javax.swing.Box;
+import java.awt.Color;
+import java.awt.Font;
+
+
+public final class GlavniProzor extends JFrame {
 	
 	Image icon = Toolkit.getDefaultToolkit().getImage("src/slike/download.png");
-
+	
 	private JMenuBar mainMenu = new JMenuBar();
-	private JMenu zanrovi = new JMenu("Zanrovi");
-	private JMenu tipoviClanarine = new JMenu("Tipovi clanarine");
+	private JMenu zanrovi = new JMenu("Žanrovi knjiga");
+	private JMenu tipoviClanarine = new JMenu("Tipovi članarine");
 	
 	
 	private Biblioteka biblioteka;
 	private Zaposleni prijavljeniKorisnik;
+	private final JButton btnNewButton = new JButton("Zaposleni");
+	private final JButton btnNewButton_1 = new JButton("Primerci knjiga");
+	private final JButton btnNewButton_2 = new JButton("Članovi biblioteke");
+	private final JButton btnNewButton_3 = new JButton("Knjige");
+	private final JButton btnNewButton_4 = new JButton("Iznajmljivanje");
+	private final JLabel lblNewLabel = new JLabel();
 	
 	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik) {
+		getContentPane().setBackground(new Color(211, 211, 211));
 		this.biblioteka = biblioteka;
 		this.prijavljeniKorisnik = prijavljeniKorisnik;
 		setTitle("Zaposleni: " + prijavljeniKorisnik.getKorisnickoIme());
-		setSize(500, 500);
+		setSize(900, 500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setIconImage(icon);
-		initMenu();
-		initActions();
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GlavniProzor.class.getResource("/slike/download.png")));
+		setResizable(false);
+		gui();
+		
 	}
 	
 	
-	private void initMenu() {
+	private void gui() {
 		setJMenuBar(mainMenu);
 		mainMenu.add(zanrovi);
 		mainMenu.add(tipoviClanarine);
 		
-	}
-	
-	private void initActions() {
-		zanrovi.addActionListener(new ActionListener() {
-			
-			@Override
+		
+		MigLayout mig = new MigLayout("wrap 1", "[250px:n,grow][360px:n,grow][250px:n]", "[200px:n,grow][50px:n][80px:n][80px:n][]");
+		getContentPane().setLayout(mig);
+		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel.setIcon(new ImageIcon(GlavniProzor.class.getResource("/slike/library.jpg")));
+		
+		getContentPane().add(lblNewLabel, "cell 0 0 3 1,alignx center");
+		btnNewButton.setFont(new Font("Gill Sans MT", Font.PLAIN, 17));
+		btnNewButton.setBackground(new Color(240, 248, 255));
+		
+		getContentPane().add(btnNewButton, "cell 0 2,grow");
+		btnNewButton_4.setFont(new Font("Gill Sans MT", Font.PLAIN, 21));
+		btnNewButton_4.setBackground(new Color(240, 248, 255));
+		
+		
+		btnNewButton_2.setFont(new Font("Gill Sans MT", Font.PLAIN, 17));
+		btnNewButton_2.setBackground(new Color(240, 248, 255));
+		
+		getContentPane().add(btnNewButton_2, "cell 2 2,grow");
+		btnNewButton_1.setFont(new Font("Gill Sans MT", Font.PLAIN, 17));
+		btnNewButton_1.setBackground(new Color(240, 248, 255));
+		
+		getContentPane().add(btnNewButton_1, "cell 0 3,grow");
+		btnNewButton_3.setFont(new Font("Gill Sans MT", Font.PLAIN, 17));
+		btnNewButton_3.setBackground(new Color(240, 248, 255));
+		
+		getContentPane().add(btnNewButton_3, "cell 2 3,grow");
+		
+		getContentPane().add(btnNewButton_4, "cell 1 2 1 2,grow");
+		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				ClanoviProzor c = new ClanoviProzor(biblioteka);
+				c.setVisible(true);
 			}
 		});
 		
+		
 	}
-
 	
+	
+
 }
