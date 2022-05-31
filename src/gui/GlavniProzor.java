@@ -16,6 +16,7 @@ import osobe.Zaposleni;
 import biblioteka.Biblioteka;
 
 import guiFormeZaPrikaz.ClanoviProzor;
+import guiFormeZaPrikaz.IznajmljivanjeProzor;
 import guiFormeZaPrikaz.KnjigeProzor;
 import guiFormeZaPrikaz.PrimerciKnjigaProzor;
 import guiFormeZaPrikaz.ZanroviProzor;
@@ -133,6 +134,13 @@ public final class GlavniProzor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ZanroviProzor z = new ZanroviProzor(biblioteka);
 				z.setVisible(true);
+			}
+		});
+		
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				IznajmljivanjeProzor i = new IznajmljivanjeProzor(biblioteka);
+				i.setVisible(true);
 			}
 		});
 	}
