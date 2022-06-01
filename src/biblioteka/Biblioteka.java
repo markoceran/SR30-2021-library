@@ -14,6 +14,7 @@ import entiteti.TipClanarine;
 import entiteti.ZanrKnjige;
 import osobe.ClanBiblioteke;
 import osobe.Pol;
+import osobe.Uloga;
 import osobe.Zaposleni;
 
 
@@ -210,7 +211,7 @@ public class Biblioteka {
 				content += zaposleni.getId() + "|" + zaposleni.getIme() + "|" 
 						+ zaposleni.getPrezime() + "|" + zaposleni.getJMBG() + "|"
 						+ zaposleni.getAdresa() + "|" + zaposleni.getPol() + "|" + zaposleni.getKorisnickoIme() + "|" 
-						+ zaposleni.getKorisnickaLozinka() + zaposleni.getPlata() + "|" + zaposleni.isObrisan() + "\n";
+						+ zaposleni.getKorisnickaLozinka() + zaposleni.getPlata() + "|" + zaposleni.isObrisan() + "|" + zaposleni.getUloga() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -436,9 +437,11 @@ public class Biblioteka {
 				String korisnickaLozinka = split[7];
 				double plata = Double.parseDouble(split[8]);
 				boolean obrisan = Boolean.parseBoolean(split[9]);
+				int ulogaInt = Integer.parseInt(split[10]);
+				Uloga uloga = Uloga.values()[ulogaInt];
 				
 				
-				Zaposleni zaposleni = new Zaposleni(id, ime, prezime, JMBG, adresa, pol, korisnickoIme, korisnickaLozinka, plata, obrisan);
+				Zaposleni zaposleni = new Zaposleni(id, ime, prezime, JMBG, adresa, pol, korisnickoIme, korisnickaLozinka, plata, obrisan, uloga);
 				listaZaposlenih.add(zaposleni);
 				
 			}

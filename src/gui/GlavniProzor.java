@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import osobe.Uloga;
 import osobe.Zaposleni;
 import biblioteka.Biblioteka;
 
@@ -21,6 +22,7 @@ import guiFormeZaPrikaz.KnjigeProzor;
 import guiFormeZaPrikaz.PrimerciKnjigaProzor;
 import guiFormeZaPrikaz.TipoviClanarineProzor;
 import guiFormeZaPrikaz.ZanroviProzor;
+import guiFormeZaPrikaz.ZaposleniProzor;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -60,7 +62,7 @@ public final class GlavniProzor extends JFrame {
 		getContentPane().setBackground(new Color(211, 211, 211));
 		this.biblioteka = biblioteka;
 		this.prijavljeniKorisnik = prijavljeniKorisnik;
-		setTitle("Zaposleni: " + prijavljeniKorisnik.getKorisnickoIme());
+		setTitle(prijavljeniKorisnik.getUloga() + " : " + prijavljeniKorisnik.getKorisnickoIme());
 		setSize(900, 500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -151,8 +153,21 @@ public final class GlavniProzor extends JFrame {
 				t.setVisible(true);
 			}
 		});
+		
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ZaposleniProzor z = new ZaposleniProzor(biblioteka);
+				z.setVisible(true);
+			}
+		});
+		
+		
+		if(prijavljeniKorisnik.getUloga().equals(Uloga.values()[0])) {
+						btnNewButton.setEnabled(false);
+		}
 	}
-	
 	
 
 }
