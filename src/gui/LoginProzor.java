@@ -58,6 +58,10 @@ public class LoginProzor extends JFrame {
 		getContentPane().add(btnOk, "split 2");
 		getContentPane().add(btnCancel);
 		
+		txtKorisnickoIme.setText("petarp");
+		pfLozinka.setText("12345");
+		getRootPane().setDefaultButton(btnOk);
+		
 	}
 
 	private void initActions() {

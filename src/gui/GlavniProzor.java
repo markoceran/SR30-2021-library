@@ -46,7 +46,8 @@ public final class GlavniProzor extends JFrame {
 	private JMenu vise = new JMenu("Više");
 	private JMenuItem zanrovi = new JMenuItem("Žanrovi knjiga");
 	private JMenuItem tipoviClanarine = new JMenuItem("Tipovi članarine");
-	private JMenuItem bibliotekaMenu = new JMenuItem("Biblioteka");
+	private JMenu bibliotekaMenu = new JMenu("Biblioteka");
+	private JMenuItem izmeni = new JMenuItem("Izmeni");
 	
 	
 	private Biblioteka biblioteka;
@@ -76,9 +77,13 @@ public final class GlavniProzor extends JFrame {
 	private void gui() {
 		setJMenuBar(mainMenu);
 		mainMenu.add(vise);
+		mainMenu.add(bibliotekaMenu);
+		zanrovi.setIcon(new ImageIcon(GlavniProzor.class.getResource("/slike/rsz_2option-3.png")));
 		vise.add(zanrovi);
+		tipoviClanarine.setIcon(new ImageIcon(GlavniProzor.class.getResource("/slike/rsz_2option-3.png")));
 		vise.add(tipoviClanarine);
-		vise.add(bibliotekaMenu);
+		izmeni.setIcon(new ImageIcon(GlavniProzor.class.getResource("/slike/edit2.png")));
+		bibliotekaMenu.add(izmeni);
 		
 		
 		MigLayout mig = new MigLayout("wrap 1", "[250px:n,grow][360px:n,grow][250px:n]", "[200px:n,grow][50px:n][80px:n][80px:n][]");
