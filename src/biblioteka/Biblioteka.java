@@ -249,7 +249,7 @@ public class Biblioteka {
 			for (Knjiga knjiga : listaKnjiga) {
 				content += knjiga.getId() + "|" + knjiga.getNaslov() + "|"
 						+ knjiga.getOriginalniNaslov() + "|" + knjiga.getPisac() + "|"
-						+ knjiga.getGodinaObjavljivanja() + "|" + knjiga.getOpisKnjige() + "|" + knjiga.getZanr() + "|" + knjiga.getJezikOriginala() + "|" + knjiga.isObrisan() + "\n";
+						+ knjiga.getGodinaObjavljivanja() + "|" + knjiga.getOpisKnjige() + "|" + knjiga.getZanr().getOznaka() + "|" + knjiga.getJezikOriginala() + "|" + knjiga.isObrisan() + "\n";
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(content);

@@ -12,6 +12,7 @@ public class Knjiga {
     private ZanrKnjige zanr;
     private String jezikOriginala;
     private boolean obrisan;
+   
     
     
 	public Knjiga() {
@@ -43,6 +44,8 @@ public class Knjiga {
 		this.obrisan = obrisan;
 	
 	}
+	
+
 
 	public int getId() {
 		return id;

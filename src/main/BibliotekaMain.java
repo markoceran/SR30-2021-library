@@ -18,13 +18,13 @@ public class BibliotekaMain {
 	
 	
 	
-	private static String CLANOVI_FAJL = "clanovi.txt";
-	private static String IZNAJMLJIVANJE_FAJL = "iznajmljivanje.txt";
-	private static String KNJIGE_FAJL = "knjige.txt";
-	private static String PRIMERCIKNJIGA_FAJL = "primerciKnjiga.txt";
-	private static String TIPOVICLANARINE_FAJL = "tipoviClanarine.txt";
-	private static String ZANROVI_FAJL = "zanrovi.txt";
-	private static String ZAPOSLENI_FAJL = "zaposleni.txt";
+	public static String CLANOVI_FAJL = "clanovi.txt";
+	public static String IZNAJMLJIVANJE_FAJL = "iznajmljivanje.txt";
+	public static String KNJIGE_FAJL = "knjige.txt";
+	public static String PRIMERCIKNJIGA_FAJL = "primerciKnjiga.txt";
+	public static String TIPOVICLANARINE_FAJL = "tipoviClanarine.txt";
+	public static String ZANROVI_FAJL = "zanrovi.txt";
+	public static String ZAPOSLENI_FAJL = "zaposleni.txt";
 	
 	
 	
