@@ -1,3 +1,3 @@
 1|Vidno polje|Vidno polje|Goran Babic|2022|Goran Babic, jedan od najvecih pesnika ovih nasih prostora, knjizevnik, esejista, strasni polemicar, scenarista, autor dokumentarnih filmova, kroz ceo svoj zivot ispisuje svojevrsni hipertekst sa mnogobrojnim linkovima, stvarajuci poseban bezgranican stvaralacki prostor mnogo godina pre pojave interneta i virtuelne globalne mreze. Vidno polje je otvoreno delo, tekst buducnosti i zalog za borbe nadolazecih knjizevnih generacija.|n|Srpski|false
 2|Iz cista mira|Iz cista mira|Dzo Aberkrombi|2022|Nemir zadire u sve slojeve drustva. Razbijaci i dalje vrebaju iz senke, kuju zavere da oslobode obicnog coveka, dok se plemstvo grabi za dodatne privilegije. Kralj Orso pokusava da nadje bezbedan put kroz politicki lavirint pun smrtonosnih opasnosti, ali se njegovi neprijatelji i njegovi dugovi samo umnozavaju.|n|Srpski|false
-3|test|test|test|2020|test test test|lj|test|false
+3|test|test|test|2020|test test test|d|test|false

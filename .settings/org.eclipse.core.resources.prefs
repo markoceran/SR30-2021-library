@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/gui/GlavniProzor.java=UTF-8
 encoding//src/gui/LoginProzor.java=UTF-8
 encoding//src/guiDodatneFormeZaIzmenu/ClanoviForma.java=UTF-8
+encoding//src/guiDodatneFormeZaIzmenu/IznajmljivanjeForma.java=UTF-8
 encoding//src/guiDodatneFormeZaIzmenu/KnjigeForma.java=UTF-8
 encoding//src/guiDodatneFormeZaIzmenu/TipoviForma.java=UTF-8
 encoding//src/guiDodatneFormeZaIzmenu/ZaposleniForma.java=UTF-8

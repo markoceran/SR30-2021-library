@@ -316,8 +316,8 @@ public class Biblioteka {
 			String content = "";
 			for (Iznajmljivanje iznajmljivanje : listaIznajmljivanja) {
 				content += iznajmljivanje.getDatumIznajmljivanja() + "|" + iznajmljivanje.getDatumVracanja() + "|" 
-						+ iznajmljivanje.getZaposleni() + "|" + iznajmljivanje.getClan() + "|"
-						+ iznajmljivanje.getPrimerakKnjige() + "|" + iznajmljivanje.isObrisan() + "\n";
+						+ iznajmljivanje.getZaposleni().getId() + "|" + iznajmljivanje.getClan().getId() + "|"
+						+ iznajmljivanje.getPrimerakKnjige().getId() + "|" + iznajmljivanje.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
