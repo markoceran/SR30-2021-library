@@ -48,7 +48,7 @@ public class KnjigeForma extends JFrame {
 	private Knjiga knjiga;
 	private Biblioteka biblioteka;
 	
-	
+
 	public KnjigeForma(Biblioteka biblioteka, Knjiga knjiga) {
 		
 		this.biblioteka = biblioteka;
@@ -126,7 +126,7 @@ public class KnjigeForma extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(validacija() == true) {
+				if(validacija()) {
 					int id = Integer.parseInt(txtId.getText().trim());	
 					String naslov = txtNaslov.getText().trim();
 					String origNaslov = txtOriginalniNaslov.getText().trim();
@@ -140,14 +140,23 @@ public class KnjigeForma extends JFrame {
 					
 					if(knjiga == null) {
 						Knjiga nova = new Knjiga (id, naslov, origNaslov, pisac, godina, opis, zanr, jezik, obrisan);
-						
-						
-						biblioteka.getListaKnjiga().add(nova);
+						biblioteka.dodajKnjigu(nova);
+					}else {
+						knjiga.setNaslov(naslov);
+						knjiga.setOriginalniNaslov(origNaslov);
+						knjiga.setPisac(pisac);
+						knjiga.setGodinaObjavljivanja(godina);
+						knjiga.setOpisKnjige(opis);
+						knjiga.setZanr(zanr);
+						knjiga.setJezikOriginala(jezik);
+						knjiga.setObrisan(obrisan);
 					}
-					
 					biblioteka.snimiKnjige(BibliotekaMain.KNJIGE_FAJL);
 					KnjigeForma.this.dispose();
 					KnjigeForma.this.setVisible(false);
+				
+					
+					
 				}
 			}
 		});

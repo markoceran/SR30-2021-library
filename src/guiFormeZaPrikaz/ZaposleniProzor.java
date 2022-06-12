@@ -3,10 +3,13 @@ package guiFormeZaPrikaz;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
@@ -14,6 +17,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import guiDodatneFormeZaIzmenu.ClanoviForma;
+import guiDodatneFormeZaIzmenu.ZaposleniForma;
+import main.BibliotekaMain;
 import osobe.ClanBiblioteke;
 import osobe.Zaposleni;
 
@@ -23,6 +29,11 @@ public class ZaposleniProzor extends JFrame {
 	private Biblioteka biblioteka;
 	private DefaultTableModel tableModel;
 	private JTable zaposleniTabela;
+	
+	
+	private JButton btnAdd = new JButton("  ");
+	private JButton btnEdit = new JButton("  ");
+	private JButton btnRemove = new JButton("  ");
 
 	public ZaposleniProzor(Biblioteka biblioteka) {
 		
@@ -38,17 +49,17 @@ public class ZaposleniProzor extends JFrame {
 		toolBar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		getContentPane().add(toolBar, BorderLayout.NORTH);
 		
-		JButton btnNewButton = new JButton("  ");
-		btnNewButton.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/add.png")));
-		toolBar.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("  ");
-		btnNewButton_1.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/edit.png")));
-		toolBar.add(btnNewButton_1);
+		btnAdd.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/add.png")));
+		toolBar.add(btnAdd);
 		
-		JButton btnNewButton_2 = new JButton("  ");
-		btnNewButton_2.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/remove.png")));
-		toolBar.add(btnNewButton_2);
+		
+		btnEdit.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/edit.png")));
+		toolBar.add(btnEdit);
+		
+		
+		btnRemove.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/remove.png")));
+		toolBar.add(btnRemove);
 		
 		
 		
@@ -85,5 +96,62 @@ public class ZaposleniProzor extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(zaposleniTabela);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
+		initAction();
 	}
+	
+	
+	private void initAction() {
+		
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ZaposleniForma zf = new ZaposleniForma(biblioteka, null);
+				zf.setVisible(true);
+				
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = zaposleniTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli !", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					
+					int zaposleniId = (int) tableModel.getValueAt(red, 0);
+					Zaposleni z = biblioteka.pronadjiZaposlenog(zaposleniId);
+					ZaposleniForma zf = new ZaposleniForma(biblioteka, z);
+						zf.setVisible(true);
+				}
+			}
+		});
+		
+		btnRemove.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = zaposleniTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					
+					int zaposleniId = (int) tableModel.getValueAt(red, 0);
+					Zaposleni z = biblioteka.pronadjiZaposlenog(zaposleniId);
+					
+					int select = JOptionPane.showConfirmDialog(null, 
+							"Da li ste sigurni da zelite da obrisete zaposlenog?", 
+							zaposleniId + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+					if(select == JOptionPane.YES_OPTION) {
+						z.setObrisan(true);
+						tableModel.removeRow(red);
+						biblioteka.snimiZaposlene(BibliotekaMain.ZAPOSLENI_FAJL);
+					}
+				}
+			}
+		});
+		
+	}
+
 }

@@ -12,6 +12,7 @@ import entiteti.Knjiga;
 import entiteti.PrimerakKnjige;
 import entiteti.TipClanarine;
 import entiteti.ZanrKnjige;
+import guiDodatneFormeZaIzmenu.ClanoviForma;
 import osobe.ClanBiblioteke;
 import osobe.Pol;
 import osobe.Uloga;
@@ -210,8 +211,8 @@ public class Biblioteka {
 			for (Zaposleni zaposleni : listaZaposlenih) {
 				content += zaposleni.getId() + "|" + zaposleni.getIme() + "|" 
 						+ zaposleni.getPrezime() + "|" + zaposleni.getJMBG() + "|"
-						+ zaposleni.getAdresa() + "|" + zaposleni.getPol() + "|" + zaposleni.getKorisnickoIme() + "|" 
-						+ zaposleni.getKorisnickaLozinka() + zaposleni.getPlata() + "|" + zaposleni.isObrisan() + "|" + zaposleni.getUloga() + "\n";
+						+ zaposleni.getAdresa() + "|" + zaposleni.getPol().ordinal() + "|" + zaposleni.getKorisnickoIme() + "|" 
+						+ zaposleni.getKorisnickaLozinka() + "|" + zaposleni.getPlata() + "|" + zaposleni.isObrisan() + "|" + zaposleni.getUloga().ordinal() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -259,17 +260,25 @@ public class Biblioteka {
 		}
 	}
 
-	
+	int pol;
 	public void snimiClanove(String imeFajla) {
 		try {
 			File file = new File("src/fajlovi/" + imeFajla);
 			String content = "";
 			for (ClanBiblioteke clan : listaClanova) {
+				
+				if(clan.getPol().equals(Pol.MUSKI)) {
+					pol = 1;
+				}else {
+					pol = 0;
+				}
+				
+				
 				content += clan.getId() + "|" + clan.getIme() + "|" 
 						+ clan.getPrezime() + "|" + clan.getJMBG() + "|"
-						+ clan.getAdresa() + "|" + clan.getPol() + "|" + clan.getBrojClanskeKarte()
+						+ clan.getAdresa() + "|" + pol + "|" + clan.getBrojClanskeKarte()
 						+ "|" + clan.getDatumPoslednjeUplate() + "|" + clan.getBrojMeseciClanarine() 
-						+ "|" + clan.isAktivan() + "|" + clan.getTipClanarine() + "|" + clan.isObrisan() + "\n";
+						+ "|" + clan.isAktivan() + "|" + clan.getTipClanarine().getId() + "|" + clan.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -289,7 +298,7 @@ public class Biblioteka {
 			for (PrimerakKnjige primerak : listaPrimerakaKnjiga) {
 				content += primerak.getId() + "|" + primerak.getBrojStrana() + "|" 
 						+ primerak.isTvrdPovez() + "|" + primerak.getGodinaStampanja() + "|"
-						+ primerak.isIznajmljena() + "|" + primerak.getKnjigaKojojPrimerakPripada() + "|" + primerak.getJezikStampanja() + "|" + primerak.isObrisan() + "\n";
+						+ primerak.isIznajmljena() + "|" + primerak.getKnjigaKojojPrimerakPripada().getId() + "|" + primerak.getJezikStampanja() + "|" + primerak.isObrisan() + "\n";
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));

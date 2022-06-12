@@ -1,3 +1,4 @@
 lj|Ljubavni romani|false
 n|Naucna i epska fantastika|false
 d|Decije i knjige za mlade|false
+k|Komedija|false

@@ -1,11 +1,9 @@
 package guiFormeZaPrikaz;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import biblioteka.Biblioteka;
 import entiteti.Knjiga;
 import guiDodatneFormeZaIzmenu.KnjigeForma;
+import main.BibliotekaMain;
 import osobe.ClanBiblioteke;
 
 public class KnjigeProzor extends JFrame {
@@ -40,7 +39,6 @@ public class KnjigeProzor extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		
 		gui();
 		initAction();
 	}
@@ -67,7 +65,7 @@ public class KnjigeProzor extends JFrame {
 		
 		
 		String[] zaglavlja = new String[] {"ID", "Naslov", "Originalni naslov", "Pisac", "Godina objavljivanja", "Opis knjige", "Žanr", "Jezik originala", "Obrisan"};
-		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniClanovi().size()][zaglavlja.length];
+		Object[][] sadrzaj = new Object[biblioteka.sveNeobrisaneKnjige().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sveNeobrisaneKnjige().size(); i++) {
 			Knjiga knjiga = biblioteka.sveNeobrisaneKnjige().get(i);
@@ -120,9 +118,32 @@ public class KnjigeProzor extends JFrame {
 				}else {
 					
 					String knjigaId = tableModel.getValueAt(red, 0).toString();
-					Knjiga knjiga = biblioteka.pronadjiKnjigu(Integer.parseInt(knjigaId));
-					KnjigeForma k = new KnjigeForma(biblioteka, knjiga);
-						k.setVisible(true);
+					Knjiga k = biblioteka.pronadjiKnjigu(Integer.parseInt(knjigaId));
+					KnjigeForma kf = new KnjigeForma(biblioteka, k);
+						kf.setVisible(true);
+				}
+			}
+		});
+		
+		btnRemove.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = knjigeTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					
+					int knjigaID = (int) tableModel.getValueAt(red, 0);
+					Knjiga k = biblioteka.pronadjiKnjigu(knjigaID);
+					
+					int select = JOptionPane.showConfirmDialog(null, 
+							"Da li ste sigurni da zelite da obrisete knjigu?", 
+							knjigaID + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+					if(select == JOptionPane.YES_OPTION) {
+						k.setObrisan(true);
+						tableModel.removeRow(red);
+						biblioteka.snimiKnjige(BibliotekaMain.KNJIGE_FAJL);
+					}
 				}
 			}
 		});

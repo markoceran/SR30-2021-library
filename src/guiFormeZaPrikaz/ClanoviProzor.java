@@ -1,6 +1,7 @@
 package guiFormeZaPrikaz;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
@@ -13,6 +14,10 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import biblioteka.Biblioteka;
+import entiteti.Knjiga;
+import guiDodatneFormeZaIzmenu.ClanoviForma;
+import guiDodatneFormeZaIzmenu.KnjigeForma;
+import main.BibliotekaMain;
 import osobe.ClanBiblioteke;
 
 import java.awt.event.ActionListener;
@@ -25,6 +30,12 @@ public class ClanoviProzor extends JFrame {
 	private Biblioteka biblioteka;
 	private DefaultTableModel tableModel;
 	private JTable clanoviTabela;
+	
+	private JButton btnAdd = new JButton("  ");
+	private JButton btnEdit = new JButton("  ");
+	private JButton btnRemove = new JButton("  ");
+	
+	
 
 	public ClanoviProzor(Biblioteka biblioteka) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ClanoviProzor.class.getResource("/slike/reader.png")));
@@ -39,17 +50,17 @@ public class ClanoviProzor extends JFrame {
 		toolBar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		getContentPane().add(toolBar, BorderLayout.NORTH);
 		
-		JButton btnNewButton = new JButton("  ");
-		btnNewButton.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/add.png")));
-		toolBar.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("  ");
-		btnNewButton_1.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/edit.png")));
-		toolBar.add(btnNewButton_1);
+		btnAdd.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/add.png")));
+		toolBar.add(btnAdd);
 		
-		JButton btnNewButton_2 = new JButton("  ");
-		btnNewButton_2.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/remove.png")));
-		toolBar.add(btnNewButton_2);
+		
+		btnEdit.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/edit.png")));
+		toolBar.add(btnEdit);
+		
+		
+		btnRemove.setIcon(new ImageIcon(ClanoviProzor.class.getResource("/slike/remove.png")));
+		toolBar.add(btnRemove);
 		
 		
 		
@@ -86,7 +97,64 @@ public class ClanoviProzor extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(clanoviTabela);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
+		initAction();
+		
 	}
+	
+	private void initAction() {
+		
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ClanoviForma cf = new ClanoviForma(biblioteka, null);
+				cf.setVisible(true);
+				
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = clanoviTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli !", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					
+					String clanId = tableModel.getValueAt(red, 0).toString();
+					ClanBiblioteke c = biblioteka.pronadjiClana(Integer.parseInt(clanId));
+					ClanoviForma cf = new ClanoviForma(biblioteka, c);
+						cf.setVisible(true);
+				}
+			}
+		});
+		
+		btnRemove.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = clanoviTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+				}else {
+					
+					int clanId = (int) tableModel.getValueAt(red, 0);
+					ClanBiblioteke c = biblioteka.pronadjiClana(clanId);
+					
+					int select = JOptionPane.showConfirmDialog(null, 
+							"Da li ste sigurni da zelite da obrisete clana?", 
+							clanId + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+					if(select == JOptionPane.YES_OPTION) {
+						c.setObrisan(true);
+						tableModel.removeRow(red);
+						biblioteka.snimiClanove(main.BibliotekaMain.CLANOVI_FAJL);
+					}
+				}
+			}
+		});
+		
+	}
+
 
 
 }
