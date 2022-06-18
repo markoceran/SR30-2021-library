@@ -76,7 +76,6 @@ public class KnjigeForma extends JFrame {
 		txtObrisan.addItem(true);
 		txtObrisan.addItem(false);
 		
-		boxZanr.addItem(" ");
 		for(ZanrKnjige zanr : biblioteka.sviNeobrisaniZanrovi()) {
 			boxZanr.addItem(zanr.getOznaka());
 		}
@@ -174,17 +173,8 @@ public class KnjigeForma extends JFrame {
 		txtPisac.setText(knjiga.getPisac());
 		txtGodinaObjavljivanja.setText(String.valueOf(knjiga.getGodinaObjavljivanja()));
 		txtOpisKnjige.setText(knjiga.getOpisKnjige());
-		if(knjiga == null) {
-			boxZanr.setSelectedItem(" ");
-		}else {
-			boxZanr.setSelectedItem(knjiga.getZanr().getOznaka());
-		}
-		if(knjiga == null) {
-			txtObrisan.setSelectedItem(false);
-		}else {
-			txtObrisan.setSelectedItem(knjiga.isObrisan());
-		}
-		
+		boxZanr.setSelectedItem(knjiga.getZanr().getOznaka());
+		txtObrisan.setSelectedItem(knjiga.isObrisan());
 		txtJezik.setText(knjiga.getJezikOriginala());
 		
 	}
@@ -219,10 +209,6 @@ public class KnjigeForma extends JFrame {
 			ok = false;
 		}
 		
-		if(boxZanr.getSelectedItem() == " ") {
-			poruka += "Morate da označite zanr\n";
-			ok = false;
-		}
 		
 		if(txtNaslov.getText().trim().equals("")) {
 			poruka += "Morate uneti naslov knjige\n";
