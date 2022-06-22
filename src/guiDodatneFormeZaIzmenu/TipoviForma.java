@@ -144,7 +144,48 @@ public class TipoviForma extends JFrame {
 	
 	private boolean validacija() {
 		
-		return true;
+		boolean ok = true;
+		String poruka = "";
+		
+		
+		try {
+			Integer.parseInt(txtId.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "ID mora biti broj\n";
+			ok = false;
+		}
+		
+		if(tip == null) {
+			String id = txtId.getText().trim();
+			TipClanarine pronadjen = biblioteka.pronadjiTipClanarine(Integer.parseInt(id));
+			if(pronadjen != null) {
+				poruka += "Tip članarine sa unetim ID već postoji\n";
+				ok = false;
+			}
+		}
+		
+		try {
+			Double.parseDouble(txtCena.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "Cena mora biti broj\n";
+			ok = false;
+		}
+		
+		
+		if(txtId.getText().trim().equals("") ||  txtNaziv.getText().trim().equals("") || txtCena.getText().trim().equals("")) {
+			
+			poruka += "Morate popuniti sva polja\n";
+		    ok = false;
 	
+		} 
+			
+		
+		
+		if(ok == false) {
+			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
+		}
+		return ok;
 	}
+	
+	
 }

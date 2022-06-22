@@ -1,4 +1,8 @@
 package main;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import biblioteka.Biblioteka;
@@ -25,27 +29,35 @@ public class BibliotekaMain {
 	public static String TIPOVICLANARINE_FAJL = "tipoviClanarine.txt";
 	public static String ZANROVI_FAJL = "zanrovi.txt";
 	public static String ZAPOSLENI_FAJL = "zaposleni.txt";
+	public static String BIBLIOTEKA_FAJL = "biblioteka.txt";
 	
 	
 	
 	
 	public static void main(String[] args) {
 
+				
+		 		Biblioteka biblioteka = new Biblioteka();
+
+				biblioteka.ucitajTipClanarine(TIPOVICLANARINE_FAJL);
+				biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
+				biblioteka.ucitajClanove(CLANOVI_FAJL);
+				biblioteka.ucitajZanrove(ZANROVI_FAJL);
+				biblioteka.ucitajKnjige(KNJIGE_FAJL);
+				biblioteka.ucitajPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
+				biblioteka.ucitajIznajmljivanje(IZNAJMLJIVANJE_FAJL);
+
+				LoginProzor lp = new LoginProzor(biblioteka);
+				lp.setVisible(true);
 		
-		Biblioteka biblioteka = new Biblioteka();
-		
-		biblioteka.ucitajTipClanarine(TIPOVICLANARINE_FAJL);
-		biblioteka.ucitajZaposlene(ZAPOSLENI_FAJL);
-		biblioteka.ucitajClanove(CLANOVI_FAJL);
-		biblioteka.ucitajZanrove(ZANROVI_FAJL);
-		biblioteka.ucitajKnjige(KNJIGE_FAJL);
-		biblioteka.ucitajPrimerkeKnjiga(PRIMERCIKNJIGA_FAJL);
-		biblioteka.ucitajIznajmljivanje(IZNAJMLJIVANJE_FAJL);
+			
+		}
 		
 		
-		LoginProzor lp = new LoginProzor(biblioteka);
-		lp.setVisible(true);
 		
+		
+		
+
 		
 		
 		/*
@@ -120,4 +132,4 @@ public class BibliotekaMain {
 
 	
 	
-}
+

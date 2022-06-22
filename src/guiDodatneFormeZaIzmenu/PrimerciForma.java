@@ -27,13 +27,13 @@ public class PrimerciForma extends JFrame {
 	private JTextField txtBrojStrana = new JTextField(25);
 	private JLabel lbTvrdPovez = new JLabel("Tvrd povez");
 	private JComboBox<Boolean> boxTvrdeKorice = new JComboBox<Boolean>();
-	private JLabel lbGodina = new JLabel("Godina štampanja");
+	private JLabel lbGodina = new JLabel("Godina Ã…Â¡tampanja");
 	private JTextField txtGodina = new JTextField(25);
 	private JLabel lbIznajmljen = new JLabel("Iznajmljen");
 	private JComboBox<Boolean> boxIznajmljen = new JComboBox<Boolean>();
 	private JLabel lbKnjiga = new JLabel("Knjiga kojoj pripada");
 	private JComboBox<Integer> boxKnjiga = new JComboBox<Integer>();
-	private JLabel lbJezik = new JLabel("Jezik štampanja");
+	private JLabel lbJezik = new JLabel("Jezik Ã…Â¡tampanja");
 	private JTextField txtJezik = new JTextField(25);
 	private JLabel lbObrisan = new JLabel("Obrisan");
 	private JComboBox<Boolean> txtObrisan = new JComboBox<Boolean>();
@@ -181,7 +181,53 @@ public class PrimerciForma extends JFrame {
 	
 	private boolean validacija() {
 		
-		return true;
+		boolean ok = true;
+		String poruka = "";
+		
+		
+		try {
+			Integer.parseInt(txtId.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "ID mora biti broj\n";
+			ok = false;
+		}
+		
+		if(primerak == null) {
+			String id = txtId.getText().trim();
+			PrimerakKnjige pronadjen = biblioteka.pronadjiPrimerak(Integer.parseInt(id));
+			if(pronadjen != null) {
+				poruka += "Primerak sa unetim ID već postoji\n";
+				ok = false;
+			}
+		}
+		
+		try {
+			Integer.parseInt(txtBrojStrana.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "Broj strana mora biti broj\n";
+			ok = false;
+		}
+		
+		try {
+			Integer.parseInt(txtGodina.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "Godina štampanja mora biti broj\n";
+			ok = false;
+		}
+		
+		if(txtId.getText().trim().equals("") ||  txtGodina.getText().trim().equals("") || txtBrojStrana.getText().trim().equals("") || txtJezik.getText().trim().equals("")) {
+			
+			poruka += "Morate popuniti sva polja\n";
+		    ok = false;
+	
+		} 
+		
+		
+		
+		if(ok == false) {
+			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
+		}
+		return ok;
 	}
 	
 

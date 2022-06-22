@@ -15,7 +15,7 @@ import javax.swing.JMenuItem;
 import osobe.Uloga;
 import osobe.Zaposleni;
 import biblioteka.Biblioteka;
-
+import guiDodatneFormeZaIzmenu.BibliotekaForma;
 import guiFormeZaPrikaz.ClanoviProzor;
 import guiFormeZaPrikaz.IznajmljivanjeProzor;
 import guiFormeZaPrikaz.KnjigeProzor;
@@ -165,6 +165,13 @@ public final class GlavniProzor extends JFrame {
 				
 				ZaposleniProzor z = new ZaposleniProzor(biblioteka);
 				z.setVisible(true);
+			}
+		});
+		
+		izmeni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BibliotekaForma b = new BibliotekaForma(biblioteka);
+				b.setVisible(true);
 			}
 		});
 		

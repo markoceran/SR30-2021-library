@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import biblioteka.Biblioteka;
+import guiDodatneFormeZaIzmenu.ZaposleniForma;
 import net.miginfocom.swing.MigLayout;
 import osobe.Zaposleni;
 
@@ -17,7 +18,8 @@ import osobe.Zaposleni;
 
 public class LoginProzor extends JFrame {
 	
-	Image icon = Toolkit.getDefaultToolkit().getImage("src/slike/61457.png");    
+	Image icon = Toolkit.getDefaultToolkit().getImage("src/slike/61457.png");
+	Image iconReg = Toolkit.getDefaultToolkit().getImage("src/slike/person.jpg");   
 	
 	private JLabel lbPoruka = new JLabel("MOLIMO DA SE PRIJAVITE:");
 	private JLabel lbKorisnickoIme = new JLabel("Korisničko ime");
@@ -26,6 +28,7 @@ public class LoginProzor extends JFrame {
 	private JPasswordField pfLozinka = new JPasswordField(20);
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
+	private JButton btnRegistracija = new JButton("Registracija");
 	
 	private Biblioteka biblioteka;
 	
@@ -55,8 +58,10 @@ public class LoginProzor extends JFrame {
 		getContentPane().add(lbLozinka);
 		getContentPane().add(pfLozinka);
 		getContentPane().add(new JLabel());
-		getContentPane().add(btnOk, "split 2");
+		getContentPane().add(btnOk, "split 3");
 		getContentPane().add(btnCancel);
+		getContentPane().add(btnRegistracija);
+		
 		
 		txtKorisnickoIme.setText("petarp");
 		pfLozinka.setText("12345");
@@ -93,6 +98,18 @@ public class LoginProzor extends JFrame {
 						gp.setVisible(true);
 					}
 				}
+			}
+		});
+		
+		btnRegistracija.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				ZaposleniForma zf = new ZaposleniForma(biblioteka, null);
+				zf.setVisible(true);
+				zf.setTitle("REGISTRACIJA");
+				zf.setIconImage(iconReg);
+				
 			}
 		});
 		

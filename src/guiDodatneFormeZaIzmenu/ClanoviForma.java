@@ -73,6 +73,7 @@ public class ClanoviForma extends JFrame {
 		initAction();
 
 	}
+
 	
 	
 
@@ -209,6 +210,66 @@ public class ClanoviForma extends JFrame {
 	
 	private boolean validacija() {
 		
-		return true;
+		boolean ok = true;
+		String poruka = "";
+		
+		
+		try {
+			Integer.parseInt(txtId.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "ID mora biti broj\n";
+			ok = false;
+		}
+		
+		if(clan == null) {
+			String id = txtId.getText().trim();
+			ClanBiblioteke pronadjen = biblioteka.pronadjiClana(Integer.parseInt(id));
+			if(pronadjen != null) {
+				poruka += "Član sa unetim ID već postoji\n";
+				ok = false;
+			}
+		}
+		
+		try {
+			Integer.parseInt(txtJmbg.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "JMBG mora biti broj\n";
+			ok = false;
+		}
+		
+		
+		if(txtId.getText().trim().equals("")) {
+			poruka += "Morate uneti ID \n";
+			ok = false;
+		}
+		
+		if(txtIme.getText().trim().equals("")) {
+			poruka += "Morate uneti ime \n";
+			ok = false;
+		}
+		
+		if(txtPrezime.getText().trim().equals("")) {
+			poruka += "Morate uneti prezime\n";
+			ok = false;
+		}
+		
+		
+		if (txtJmbg.getText().trim().equals("")) {
+			poruka += "Morate uneti jmbg \n";
+			ok = false;
+		}
+		
+		
+		if (txtAdresa.getText().trim().equals("")) {
+			poruka += "Morate uneti adresu\n";
+			ok = false;
+		}
+		
+		
+		if(ok == false) {
+			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
+		}
+		return ok;
 	}
+	
 }

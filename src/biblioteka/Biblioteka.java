@@ -12,6 +12,7 @@ import entiteti.Knjiga;
 import entiteti.PrimerakKnjige;
 import entiteti.TipClanarine;
 import entiteti.ZanrKnjige;
+import guiDodatneFormeZaIzmenu.BibliotekaForma;
 import guiDodatneFormeZaIzmenu.ClanoviForma;
 import osobe.ClanBiblioteke;
 import osobe.Pol;
@@ -315,7 +316,7 @@ public class Biblioteka {
 			File file = new File("src/fajlovi/" + imeFajla);
 			String content = "";
 			for (Iznajmljivanje iznajmljivanje : listaIznajmljivanja) {
-				content += iznajmljivanje.getDatumIznajmljivanja() + "|" + iznajmljivanje.getDatumVracanja() + "|" 
+				content += iznajmljivanje.getId() + "|" + iznajmljivanje.getDatumIznajmljivanja() + "|" + iznajmljivanje.getDatumVracanja() + "|" 
 						+ iznajmljivanje.getZaposleni().getId() + "|" + iznajmljivanje.getClan().getId() + "|"
 						+ iznajmljivanje.getPrimerakKnjige().getId() + "|" + iznajmljivanje.isObrisan() + "\n";
 			}
@@ -328,6 +329,23 @@ public class Biblioteka {
 		}
 	}
 
+	public void snimiBiblioteku(String imeFajla) {
+		try {
+			File file = new File("src/fajlovi/" + imeFajla);
+			String content = "";
+			
+			
+			content += this.getNaziv() + "|" + this.getAdresa() + "|" + this.getBrojTelefona() + "|" 
+						+ this.getRadnoVreme() + "\n";
+			
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(content);
+			writer.close();
+		} catch (Exception e) {
+			System.out.println("Greska prilikom snimanja biblioteke.");
+		}
+	}
 	
 	
 	/********************************************************************************************/
@@ -388,6 +406,15 @@ public class Biblioteka {
 		for (PrimerakKnjige primerak : listaPrimerakaKnjiga) {
 			if(primerak.getId() == id) {
 				return primerak;
+			}
+		}
+		return null;
+	}
+	
+	public Iznajmljivanje pronadjiIznajmljivanja(int id) {
+		for (Iznajmljivanje iznajm : listaIznajmljivanja) {
+			if(iznajm.getId() == id) {
+				return iznajm;
 			}
 		}
 		return null;
@@ -609,22 +636,24 @@ public class Biblioteka {
 				
 				String[] split = line.split("\\|");
 				
-				LocalDate datumIznajmljivanja = LocalDate.parse(split[0]);
-				LocalDate datumVracanja = LocalDate.parse(split[1]);
+				int id = Integer.parseInt(split[0]);
 				
-				int ZaposleniId = Integer.parseInt(split[2]);
+				LocalDate datumIznajmljivanja = LocalDate.parse(split[1]);
+				LocalDate datumVracanja = LocalDate.parse(split[2]);
+				
+				int ZaposleniId = Integer.parseInt(split[3]);
 				Zaposleni zaposleni = (Zaposleni) pronadjiZaposlenog(ZaposleniId);
 				
-				int ClanId = Integer.parseInt(split[3]);
+				int ClanId = Integer.parseInt(split[4]);
 				ClanBiblioteke clan = (ClanBiblioteke) pronadjiClana(ClanId);
 				
-				int PrimerakKnjigeId = Integer.parseInt(split[4]);
+				int PrimerakKnjigeId = Integer.parseInt(split[5]);
 				PrimerakKnjige primerakKnjige = (PrimerakKnjige) pronadjiPrimerak(PrimerakKnjigeId);
 				
-				boolean obrisan = Boolean.parseBoolean(split[5]);
+				boolean obrisan = Boolean.parseBoolean(split[6]);
 				
 				
-				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(datumIznajmljivanja, datumVracanja, zaposleni, clan, primerakKnjige, obrisan);
+				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(id, datumIznajmljivanja, datumVracanja, zaposleni, clan, primerakKnjige, obrisan);
 				listaIznajmljivanja.add(iznajmljivanje);
 				
 			}
@@ -635,6 +664,35 @@ public class Biblioteka {
 		}
 	}
 
+	
+	public Biblioteka ucitajBiblioteku(String imeFajla) {
+		try {
+			File file = new File("src/fajlovi/" + imeFajla);
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				
+				String[] split = line.split("\\|");
+				
+				String naziv = (split[0]);
+				String adresa = (split[1]);
+				String brojT = (split[2]);
+				String radnoV = (split[3]);
+				
+	
+				Biblioteka biblioteka = new Biblioteka(naziv, adresa, brojT, radnoV, null, null, null,null,null,null,null);
+				return biblioteka;
+				
+			}
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Greska prilikom snimanja podataka o iznajmljivanju");
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
 
 	
 	/******************************************************************************************************/

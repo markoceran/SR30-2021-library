@@ -8,9 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import biblioteka.Biblioteka;
+import entiteti.Iznajmljivanje;
 import entiteti.TipClanarine;
 import entiteti.ZanrKnjige;
 import main.BibliotekaMain;
@@ -40,9 +42,9 @@ public class ZanroviForma extends JFrame {
 		this.biblioteka = biblioteka;
 		this.zanr = zanr;
 		if(zanr == null) {
-			setTitle("Dodavanje žanra knjige :");
+			setTitle("Dodavanje Å¾anra knjige :");
 		}else {
-			setTitle("Izmena podataka žanra [" + zanr.getOznaka() + "]");
+			setTitle("Izmena podataka Å¾anra [" + zanr.getOznaka() + "]");
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(350, 350);
@@ -137,8 +139,36 @@ public class ZanroviForma extends JFrame {
 	
 	private boolean validacija() {
 		
-		return true;
+		boolean ok = true;
+		String poruka = "";
+		
+		
+		
+		
+		if(zanr == null) {
+			String id = txtOznaka.getText().trim();
+			ZanrKnjige pronadjen = biblioteka.pronadjiZanr(id);
+			if(pronadjen != null) {
+				poruka += "Žanr sa unetim ID već postoji\n";
+				ok = false;
+			}
+		}
+		
+		if(txtOznaka.getText().trim().equals("") ||  txtOpis.getText().trim().equals("")) {
+			
+			poruka += "Morate popuniti sva polja\n";
+		    ok = false;
+	
+		} 
+		
+		if(ok == false) {
+			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
+		}
+		return ok;
 	}
+		
+		
+	
 }
 
 

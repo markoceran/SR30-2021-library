@@ -5,7 +5,7 @@ import osobe.Zaposleni;
 
 public class Iznajmljivanje {
 
-    
+    private int id;
     private LocalDate datumIznajmljivanja;
     private LocalDate datumVracanja;
     private Zaposleni zaposleni;
@@ -16,6 +16,7 @@ public class Iznajmljivanje {
     
 	public Iznajmljivanje() {
 		
+		this.id = 0;
 		this.datumIznajmljivanja = LocalDate.of(0,0,0);
 		this.datumVracanja = LocalDate.of(0,0,0);
 		this.zaposleni = new Zaposleni();
@@ -25,7 +26,7 @@ public class Iznajmljivanje {
 	}
 
 
-	public Iznajmljivanje(LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
+	public Iznajmljivanje(int id, LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
 			ClanBiblioteke clan, PrimerakKnjige primerakKnjige,boolean obrisan) {
 		super();
 		this.datumIznajmljivanja = datumIznajmljivanja;
@@ -34,6 +35,7 @@ public class Iznajmljivanje {
 		this.clan = clan;
 		this.primerakKnjige = primerakKnjige;
 		this.obrisan = obrisan;
+		this.id = id;
 	}
 
 
@@ -97,11 +99,24 @@ public class Iznajmljivanje {
 	public void setObrisan(boolean obrisan) {
 		this.obrisan = obrisan;
 	}
+	
+	
+	
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Iznajmljivanje [datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja=" + datumVracanja
+		return "Iznajmljivanje [id=" + id + ", datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja=" + datumVracanja
 				+ ", zaposleni=" + zaposleni + ", clan=" + clan + ", primerakKnjige=" + primerakKnjige + " , obrisan=" + obrisan + "]";
 	}
 	

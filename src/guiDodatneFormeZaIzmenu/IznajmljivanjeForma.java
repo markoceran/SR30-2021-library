@@ -3,11 +3,13 @@ package guiDodatneFormeZaIzmenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import biblioteka.Biblioteka;
@@ -22,6 +24,8 @@ import osobe.Zaposleni;
 
 public class IznajmljivanjeForma extends JFrame {
 	
+	private JLabel lbID = new JLabel ("ID");
+	private JTextField txtID = new JTextField(25);
 	private JLabel lbDatumIznajmljivanja = new JLabel ("Datum iznajmljivanja");
 	private JTextField txtDatumIznajmljivanja = new JTextField(25);
 	private JLabel lbDatumVracanja= new JLabel("Datum vraćanja");
@@ -70,17 +74,17 @@ public class IznajmljivanjeForma extends JFrame {
 		txtObrisan.addItem(true);
 		txtObrisan.addItem(false);
 		
-		boxZaposleni.addItem(0);
+		
 		for(Zaposleni z : biblioteka.sviNeobrisaniZaposleni()) {
 			boxZaposleni.addItem(z.getId());
 		}
 		
-		boxClan.addItem(0);
+		
 		for(ClanBiblioteke c : biblioteka.sviNeobrisaniClanovi()) {
 			boxClan.addItem(c.getId());
 		}
 		
-		boxPrimerak.addItem(0);
+		
 		for(PrimerakKnjige p : biblioteka.sviNeobrisaniPrimerci()) {
 			boxPrimerak.addItem(p.getId());
 		}
@@ -91,7 +95,8 @@ public class IznajmljivanjeForma extends JFrame {
 			popuniPolja();
 		}
 		
-		
+		add(lbID);
+		add(txtID);
 		add(lbDatumIznajmljivanja);
 		add(txtDatumIznajmljivanja);
 		add(lbDatumVracanja);
@@ -126,17 +131,24 @@ public class IznajmljivanjeForma extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(validacija()) {
+					
+					int id = Integer.parseInt(txtID.getText().trim()) ;
 					LocalDate datumIz = LocalDate.parse(txtDatumIznajmljivanja.getText().trim()) ;
 					LocalDate datumVr = LocalDate.parse(txtDatumVracanja.getText().trim());
-					Zaposleni zaposleni = biblioteka.pronadjiZaposlenog(Integer.parseInt((String) boxZaposleni.getSelectedItem()) ); 
-					ClanBiblioteke clan = biblioteka.pronadjiClana(Integer.parseInt((String) boxClan.getSelectedItem()) ); 
-					PrimerakKnjige primerak = biblioteka.pronadjiPrimerak(Integer.parseInt((String) boxPrimerak.getSelectedItem()) ); 
+					int zaposleniId = (int) boxZaposleni.getSelectedItem();
+					Zaposleni zaposleni = biblioteka.pronadjiZaposlenog(zaposleniId); 
+					int clanId = (int) boxClan.getSelectedItem();
+					int primerakId = (int) boxPrimerak.getSelectedItem();
+					ClanBiblioteke clan = biblioteka.pronadjiClana(clanId); 
+					PrimerakKnjige primerak = biblioteka.pronadjiPrimerak(primerakId); 
 					Boolean obrisan = (Boolean) txtObrisan.getSelectedItem();
 					
 					if(iznajmljivanje == null) {
-						Iznajmljivanje novo = new Iznajmljivanje (datumIz, datumVr, zaposleni, clan, primerak, obrisan);
+						Iznajmljivanje novo = new Iznajmljivanje (id, datumIz, datumVr, zaposleni, clan, primerak, obrisan);
 						biblioteka.dodajIznajmljivanje(novo);
 					}else {
+						
+						iznajmljivanje.setId(id);
 						iznajmljivanje.setDatumIznajmljivanja(datumIz);
 						iznajmljivanje.setDatumVracanja(datumVr);
 						iznajmljivanje.setZaposleni(zaposleni);
@@ -164,6 +176,7 @@ public class IznajmljivanjeForma extends JFrame {
 	
 	private void popuniPolja() {
 		
+		txtID.setText(String.valueOf(iznajmljivanje.getId()));
 		txtDatumIznajmljivanja.setText(String.valueOf(iznajmljivanje.getDatumIznajmljivanja()));
 		txtDatumVracanja.setText(String.valueOf(iznajmljivanje.getDatumVracanja()));
 		boxZaposleni.setSelectedItem(iznajmljivanje.getZaposleni().getId());
@@ -176,10 +189,43 @@ public class IznajmljivanjeForma extends JFrame {
 	}
 	
 	
+	
 	private boolean validacija() {
 		
-		return true;
+		boolean ok = true;
+		String poruka = "";
+		
+		
+		try {
+			Integer.parseInt(txtID.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "ID mora biti broj\n";
+			ok = false;
+		}
+		
+		if(iznajmljivanje == null) {
+			String id = txtID.getText().trim();
+			Iznajmljivanje pronadjeno = biblioteka.pronadjiIznajmljivanja(Integer.parseInt(id));
+			if(pronadjeno != null) {
+				poruka += "Iznajmljivanje sa unetim ID već postoji\n";
+				ok = false;
+			}
+		}
+		
+		if(txtID.getText().trim().equals("") ||  txtDatumIznajmljivanja.getText().trim().equals("") || txtDatumVracanja.getText().trim().equals("")) {
+			
+			poruka += "Morate popuniti sva polja\n";
+		    ok = false;
 	
+		} 
+		
+		if(ok == false) {
+			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
+		}
+		return ok;
 	}
 	
+	
 }
+	
+
