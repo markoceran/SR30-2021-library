@@ -7,6 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import entiteti.Iznajmljivanje;
 import entiteti.Knjiga;
 import entiteti.PrimerakKnjige;
@@ -34,6 +37,7 @@ public class Biblioteka {
     private ArrayList<PrimerakKnjige> listaPrimerakaKnjiga;
     private ArrayList<Knjiga> listaKnjiga;
     private ArrayList<ZanrKnjige> listaZanrova;
+    
     
     
     
@@ -315,18 +319,38 @@ public class Biblioteka {
 		try {
 			File file = new File("src/fajlovi/" + imeFajla);
 			String content = "";
+			String t = "";
+			
+			
 			for (Iznajmljivanje iznajmljivanje : listaIznajmljivanja) {
+				
+				
+				ArrayList<String> primerci = iznajmljivanje.getPrimerakKnjige();
+				
+				for(String i : primerci) {
+				
+					t = t + i + ",";
+				
+				}
+				
+				StringBuffer sb = new StringBuffer(t);    
+				sb.deleteCharAt(sb.length()-1); 
+				System.out.println(sb);
 				content += iznajmljivanje.getId() + "|" + iznajmljivanje.getDatumIznajmljivanja() + "|" + iznajmljivanje.getDatumVracanja() + "|" 
 						+ iznajmljivanje.getZaposleni().getId() + "|" + iznajmljivanje.getClan().getId() + "|"
-						+ iznajmljivanje.getPrimerakKnjige().getId() + "|" + iznajmljivanje.isObrisan() + "\n";
+						+ sb + "|" + iznajmljivanje.isObrisan() + "\n";
+				
+				t = "";
+		
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(content);
 			writer.close();
 		} catch (Exception e) {
-			System.out.println("Greska prilikom snimanja iznajmljivanja.");
+		
 		}
+		
 	}
 
 	public void snimiBiblioteku(String imeFajla) {
@@ -626,7 +650,7 @@ public class Biblioteka {
 		}
 	}
 
-	
+	ArrayList<PrimerakKnjige> sviPromerci = new ArrayList<PrimerakKnjige>();
 	public void ucitajIznajmljivanje(String imeFajla) {
 		try {
 			File file = new File("src/fajlovi/" + imeFajla);
@@ -635,6 +659,7 @@ public class Biblioteka {
 			while ((line = reader.readLine()) != null) {
 				
 				String[] split = line.split("\\|");
+				
 				
 				int id = Integer.parseInt(split[0]);
 				
@@ -647,13 +672,16 @@ public class Biblioteka {
 				int ClanId = Integer.parseInt(split[4]);
 				ClanBiblioteke clan = (ClanBiblioteke) pronadjiClana(ClanId);
 				
-				int PrimerakKnjigeId = Integer.parseInt(split[5]);
-				PrimerakKnjige primerakKnjige = (PrimerakKnjige) pronadjiPrimerak(PrimerakKnjigeId);
+				String num = split[5];
+				String str[] = num.split(",");
+				List<String> a = (List<String>)Arrays.asList(str) ;
+				ArrayList<String> PrimerakKnjigeId = new ArrayList<String>(a);
 				
+		
 				boolean obrisan = Boolean.parseBoolean(split[6]);
 				
 				
-				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(id, datumIznajmljivanja, datumVracanja, zaposleni, clan, primerakKnjige, obrisan);
+				Iznajmljivanje iznajmljivanje = new Iznajmljivanje(id, datumIznajmljivanja, datumVracanja, zaposleni, clan, PrimerakKnjigeId, obrisan);
 				listaIznajmljivanja.add(iznajmljivanje);
 				
 			}

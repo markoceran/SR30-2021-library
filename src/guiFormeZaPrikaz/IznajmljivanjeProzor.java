@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -66,14 +68,28 @@ public class IznajmljivanjeProzor extends JFrame {
 		String[] zaglavlja = new String[] {"ID", "Datum iznajmljivanja", "Datum vracanja", "Zaposleni", "Član", "Primerak knjige", "Obrisan"};
 		Object[][] sadrzaj = new Object[biblioteka.svaNeobrisanaIznajmljivanja().size()][zaglavlja.length];
 		
+		
 		for(int i=0; i<biblioteka.svaNeobrisanaIznajmljivanja().size(); i++) {
+			
 			Iznajmljivanje iznajmljivanje = biblioteka.svaNeobrisanaIznajmljivanja().get(i);
 			sadrzaj[i][0] = iznajmljivanje.getId();
 			sadrzaj[i][1] = iznajmljivanje.getDatumIznajmljivanja();
 			sadrzaj[i][2] = iznajmljivanje.getDatumVracanja();
 			sadrzaj[i][3] = iznajmljivanje.getZaposleni();
 			sadrzaj[i][4] = iznajmljivanje.getClan();
-			sadrzaj[i][5] = iznajmljivanje.getPrimerakKnjige();
+			
+			int n = iznajmljivanje.getPrimerakKnjige().size();
+			String unos = "";
+			ArrayList<String> lista = new ArrayList<String>();
+			
+			for(int j=0 ; j<n ; j++) {
+				
+				lista = iznajmljivanje.getPrimerakKnjige();
+				int el = Integer.parseInt(lista.get(j));
+				unos = unos + "[" + el + "]" +  "- Knjiga: " + biblioteka.pronadjiPrimerak(el).getKnjigaKojojPrimerakPripada().getOriginalniNaslov() +". ";
+				
+			}
+			sadrzaj[i][5] = unos;
 			sadrzaj[i][6] = iznajmljivanje.isObrisan();
 			
 		}
@@ -117,7 +133,7 @@ public class IznajmljivanjeProzor extends JFrame {
 					String iznId = tableModel.getValueAt(red, 0).toString();
 					Iznajmljivanje i = biblioteka.pronadjiIznajmljivanja(Integer.parseInt(iznId));
 					IznajmljivanjeForma izf = new IznajmljivanjeForma(biblioteka, i);
-						izf.setVisible(true);
+					izf.setVisible(true);
 				}
 			}
 		});

@@ -3,9 +3,11 @@ package guiDodatneFormeZaIzmenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,9 +37,10 @@ public class IznajmljivanjeForma extends JFrame {
 	private JLabel lbClan = new JLabel("Član biblioteke");
 	private JComboBox<Integer> boxClan = new JComboBox<Integer>();
 	private JLabel lbPrimerak = new JLabel("Primerak knjige");
-	private JComboBox<Integer> boxPrimerak = new JComboBox<Integer>();
+	private ArrayList<String> primerci = new ArrayList<String>();
 	private JLabel lbObrisan = new JLabel("Obrisan");
 	private JComboBox<Boolean> txtObrisan = new JComboBox<Boolean>();
+	
 	
 	
 	private JButton btnOK = new JButton("OK");
@@ -46,6 +49,9 @@ public class IznajmljivanjeForma extends JFrame {
 	private Iznajmljivanje iznajmljivanje;
 	private Biblioteka biblioteka;
 	
+	
+	private JCheckBox checkBox;
+	private ArrayList<JCheckBox> boxLista = new ArrayList<JCheckBox>();
 
 	public IznajmljivanjeForma(Biblioteka biblioteka, Iznajmljivanje iznajmljivanje) {
 		
@@ -57,7 +63,7 @@ public class IznajmljivanjeForma extends JFrame {
 			setTitle("Izmena podataka o iznajmljivanju");
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350,350);
+		setSize(800,700);
 		setLocationRelativeTo(null);
 		gui();
 		initAction();
@@ -85,10 +91,6 @@ public class IznajmljivanjeForma extends JFrame {
 		}
 		
 		
-		for(PrimerakKnjige p : biblioteka.sviNeobrisaniPrimerci()) {
-			boxPrimerak.addItem(p.getId());
-		}
-		
 		
 		
 		if(iznajmljivanje != null) {
@@ -105,8 +107,23 @@ public class IznajmljivanjeForma extends JFrame {
 		add(boxZaposleni);
 		add(lbClan);
 		add(boxClan);
-		add(lbPrimerak);
-		add(boxPrimerak);
+		add(lbPrimerak , "wrap");
+		
+		
+		for(PrimerakKnjige p : biblioteka.sviNeobrisaniPrimerci()) {
+			
+			String i = String.valueOf(p.getId());
+			
+			checkBox  = new JCheckBox("" + i +"" + " - Knjiga: " + p.getKnjigaKojojPrimerakPripada().getOriginalniNaslov());  
+			checkBox.setName(i);
+	        add(checkBox);
+	        boxLista.add(checkBox);
+	       
+	        
+		}
+		
+
+		add(lbObrisan);
 		add(lbObrisan);
 		add(txtObrisan);
 		
@@ -138,13 +155,22 @@ public class IznajmljivanjeForma extends JFrame {
 					int zaposleniId = (int) boxZaposleni.getSelectedItem();
 					Zaposleni zaposleni = biblioteka.pronadjiZaposlenog(zaposleniId); 
 					int clanId = (int) boxClan.getSelectedItem();
-					int primerakId = (int) boxPrimerak.getSelectedItem();
 					ClanBiblioteke clan = biblioteka.pronadjiClana(clanId); 
-					PrimerakKnjige primerak = biblioteka.pronadjiPrimerak(primerakId); 
 					Boolean obrisan = (Boolean) txtObrisan.getSelectedItem();
 					
+					for(JCheckBox i : boxLista) {
+						
+					
+						if(i.isSelected()) {
+				        	primerci.add(i.getName());
+				        }
+						
+					}
+					
+
+					System.out.println(primerci);
 					if(iznajmljivanje == null) {
-						Iznajmljivanje novo = new Iznajmljivanje (id, datumIz, datumVr, zaposleni, clan, primerak, obrisan);
+						Iznajmljivanje novo = new Iznajmljivanje (id, datumIz, datumVr, zaposleni, clan, primerci , obrisan);
 						biblioteka.dodajIznajmljivanje(novo);
 					}else {
 						
@@ -153,7 +179,7 @@ public class IznajmljivanjeForma extends JFrame {
 						iznajmljivanje.setDatumVracanja(datumVr);
 						iznajmljivanje.setZaposleni(zaposleni);
 						iznajmljivanje.setClan(clan);
-						iznajmljivanje.setPrimerakKnjige(primerak);
+						iznajmljivanje.setPrimerakKnjige(primerci);
 						iznajmljivanje.setObrisan(obrisan);
 
 
@@ -181,12 +207,13 @@ public class IznajmljivanjeForma extends JFrame {
 		txtDatumVracanja.setText(String.valueOf(iznajmljivanje.getDatumVracanja()));
 		boxZaposleni.setSelectedItem(iznajmljivanje.getZaposleni().getId());
 		boxClan.setSelectedItem(iznajmljivanje.getClan().getId());
-		boxPrimerak.setSelectedItem(iznajmljivanje.getPrimerakKnjige().getId());
 		txtObrisan.setSelectedItem(iznajmljivanje.isObrisan());
-
 	
-		
-	}
+				
+			
+}
+			
+
 	
 	
 	
@@ -225,7 +252,7 @@ public class IznajmljivanjeForma extends JFrame {
 		return ok;
 	}
 	
-	
+
 }
 	
 

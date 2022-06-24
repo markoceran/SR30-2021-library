@@ -1,5 +1,7 @@
 package entiteti;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 import osobe.ClanBiblioteke;
 import osobe.Zaposleni;
 
@@ -10,7 +12,7 @@ public class Iznajmljivanje {
     private LocalDate datumVracanja;
     private Zaposleni zaposleni;
     private ClanBiblioteke clan;
-    private PrimerakKnjige primerakKnjige;
+    private ArrayList<String> primerakKnjige;
     private boolean obrisan;
     
     
@@ -21,13 +23,13 @@ public class Iznajmljivanje {
 		this.datumVracanja = LocalDate.of(0,0,0);
 		this.zaposleni = new Zaposleni();
 		this.clan = new ClanBiblioteke();
-		this.primerakKnjige = new PrimerakKnjige();
+		this.primerakKnjige = new ArrayList<String>();
 		this.obrisan = false;
 	}
 
 
 	public Iznajmljivanje(int id, LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
-			ClanBiblioteke clan, PrimerakKnjige primerakKnjige,boolean obrisan) {
+			ClanBiblioteke clan, ArrayList<String> primerakKnjige,boolean obrisan) {
 		super();
 		this.datumIznajmljivanja = datumIznajmljivanja;
 		this.datumVracanja = datumVracanja;
@@ -79,16 +81,14 @@ public class Iznajmljivanje {
 	}
 
 
-	public PrimerakKnjige getPrimerakKnjige() {
+	public ArrayList<String> getPrimerakKnjige() {
 		return primerakKnjige;
 	}
 
 
-	public void setPrimerakKnjige(PrimerakKnjige primerakKnjige) {
+	public void setPrimerakKnjige(ArrayList<String> primerakKnjige) {
 		this.primerakKnjige = primerakKnjige;
 	}
-	
-	
 
 
 	public boolean isObrisan() {
@@ -101,8 +101,6 @@ public class Iznajmljivanje {
 	}
 	
 	
-	
-
 
 	public int getId() {
 		return id;
