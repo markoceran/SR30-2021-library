@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import biblioteka.Biblioteka;
 import entiteti.PrimerakKnjige;
 import guiDodatneFormeZaIzmenu.PrimerciForma;
+import guiDodatneFormeZaIzmenu.SviIznajmljeniPrimerciForma;
 import main.BibliotekaMain;
 import osobe.ClanBiblioteke;
 
@@ -32,7 +33,7 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 	private JButton btnAdd = new JButton("  ");
 	private JButton btnRemove = new JButton("  ");
 	
-	private ArrayList<PrimerakKnjige> sviIznajmljeni = new ArrayList<PrimerakKnjige>();
+	protected ArrayList<PrimerakKnjige> sviIznajmljeni = new ArrayList<PrimerakKnjige>();
 	
 	
 	public SviIznajmljeniPrimerciProzor(Biblioteka biblioteka) {
@@ -110,8 +111,8 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					PrimerciForma pf = new PrimerciForma(biblioteka, null);
-					pf.setVisible(true);
+					SviIznajmljeniPrimerciForma sp = new SviIznajmljeniPrimerciForma(biblioteka, null);
+					sp.setVisible(true);
 					
 				}
 			});
@@ -129,10 +130,10 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 						PrimerakKnjige p = biblioteka.pronadjiPrimerak(primerciId);
 						
 						int select = JOptionPane.showConfirmDialog(null, 
-								"Da li ste sigurni da zelite da obrisete primerak knjige?", 
+								"Da li ste sigurni da zelite da obrisete iznajmljeni primerak?", 
 								primerciId + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
 						if(select == JOptionPane.YES_OPTION) {
-							p.setObrisan(true);
+							p.setIznajmljena(false);
 							tableModel.removeRow(red);
 							biblioteka.snimiPrimerkeKnjiga(BibliotekaMain.PRIMERCIKNJIGA_FAJL);
 						}

@@ -1,10 +1,10 @@
-1|253|false|2010|false|1|Engleski|false
-2|364|false|2009|false|2|Engleski|false
+1|253|false|2010|true|1|Engleski|false
+2|364|false|2009|true|2|Engleski|false
 3|253|true|2020|true|1|Srpski|false
-4|364|false|2019|true|2|Srpski|false
+4|364|false|2019|false|2|Srpski|false
 5|162|false|2013|false|3|Srpski|false
 6|162|true|2016|false|3|Engleski|false
 7|162|false|2018|true|3|Engleski|false
-8|253|true|2020|true|1|Srpski|false
+8|253|true|2020|false|1|Srpski|false
 9|253|false|2020|true|1|Engleski|false
-10|253|true|2010|true|1|Srpski|false
+10|253|true|2010|false|1|Srpski|false
