@@ -1,7 +1,10 @@
 package guiDodatneFormeZaIzmenu;
 
+import java.awt.Checkbox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +22,7 @@ import entiteti.Iznajmljivanje;
 import entiteti.PrimerakKnjige;
 import entiteti.TipClanarine;
 import entiteti.ZanrKnjige;
+import guiFormeZaPrikaz.SviIznajmljeniPrimerciProzor;
 import main.BibliotekaMain;
 import net.miginfocom.swing.MigLayout;
 import osobe.ClanBiblioteke;
@@ -40,7 +44,7 @@ public class IznajmljivanjeForma extends JFrame {
 	private ArrayList<String> primerci = new ArrayList<String>();
 	private JLabel lbObrisan = new JLabel("Obrisan");
 	private JComboBox<Boolean> txtObrisan = new JComboBox<Boolean>();
-	
+	private JButton btnListaIznajmljenihPrimeraka = new JButton("Iznajmljeni primerci");
 	
 	
 	private JButton btnOK = new JButton("OK");
@@ -93,9 +97,7 @@ public class IznajmljivanjeForma extends JFrame {
 		
 		
 		
-		if(iznajmljivanje != null) {
-			popuniPolja();
-		}
+		
 		
 		add(lbID);
 		add(txtID);
@@ -107,29 +109,57 @@ public class IznajmljivanjeForma extends JFrame {
 		add(boxZaposleni);
 		add(lbClan);
 		add(boxClan);
-		add(lbPrimerak , "wrap");
-		
-		
-		for(PrimerakKnjige p : biblioteka.sviNeobrisaniPrimerci()) {
-			
-			String i = String.valueOf(p.getId());
-			
-			checkBox  = new JCheckBox("" + i +"" + " - Knjiga: " + p.getKnjigaKojojPrimerakPripada().getOriginalniNaslov());  
-			checkBox.setName(i);
-	        add(checkBox);
-	        boxLista.add(checkBox);
-	       
-	        
-		}
-		
-
-		add(lbObrisan);
 		add(lbObrisan);
 		add(txtObrisan);
+		
+		add(lbPrimerak);
+		add(btnListaIznajmljenihPrimeraka);
+		
+		
+		
+			
+		for(PrimerakKnjige p : biblioteka.sviNeobrisaniPrimerci()) {
+			
+				String i = String.valueOf(p.getId());
+	
+				checkBox  = new JCheckBox("" + i +"" + " - Knjiga: " + p.getKnjigaKojojPrimerakPripada().getOriginalniNaslov());  
+				checkBox.setName(i);
+				boxLista.add(checkBox);
+				
+				
+					
+				
+					if(p.isIznajmljena()==false) {
+						
+						add(checkBox);
+					
+					}
+					
+					
+			}
+	        
+				
+				
+		
+		
+		if(iznajmljivanje != null) {
+						
+			for(String x : iznajmljivanje.getPrimerakKnjige()) {
+				
+				JCheckBox b = pronadjiCheckBox(x);
+				add(b);
+							
+			}
+			popuniPolja();
+		
+		}
+		
 		
 		add(new JLabel());
 		add(btnOK, "split 2");
 		add(btnCancel);
+		
+
 	}
 	
 	
@@ -158,21 +188,42 @@ public class IznajmljivanjeForma extends JFrame {
 					ClanBiblioteke clan = biblioteka.pronadjiClana(clanId); 
 					Boolean obrisan = (Boolean) txtObrisan.getSelectedItem();
 					
+					
+					
 					for(JCheckBox i : boxLista) {
 						
 					
-						if(i.isSelected()) {
+						if(i.isSelected()==true) {
 				        	primerci.add(i.getName());
+				        	int idPrimerka = Integer.parseInt(i.getName());
+				        	PrimerakKnjige p = biblioteka.pronadjiPrimerak(idPrimerka);
+				        	p.setIznajmljena(true);
+				        	biblioteka.snimiPrimerkeKnjiga(BibliotekaMain.PRIMERCIKNJIGA_FAJL);
 				        }
 						
 					}
 					
 
-					System.out.println(primerci);
+					
 					if(iznajmljivanje == null) {
 						Iznajmljivanje novo = new Iznajmljivanje (id, datumIz, datumVr, zaposleni, clan, primerci , obrisan);
 						biblioteka.dodajIznajmljivanje(novo);
 					}else {
+						
+						
+						for(String b : iznajmljivanje.getPrimerakKnjige()) {
+							
+							JCheckBox x = pronadjiCheckBox(b);
+							
+							if(x.isSelected()==false) {
+							    PrimerakKnjige p = biblioteka.pronadjiPrimerak(Integer.parseInt(x.getName()));
+							    p.setIznajmljena(false);
+							 
+							    biblioteka.snimiPrimerkeKnjiga(BibliotekaMain.PRIMERCIKNJIGA_FAJL);
+							           
+						   }
+						}	
+						
 						
 						iznajmljivanje.setId(id);
 						iznajmljivanje.setDatumIznajmljivanja(datumIz);
@@ -181,21 +232,32 @@ public class IznajmljivanjeForma extends JFrame {
 						iznajmljivanje.setClan(clan);
 						iznajmljivanje.setPrimerakKnjige(primerci);
 						iznajmljivanje.setObrisan(obrisan);
+						
+					  }
 
-
+						
+						
+						
 
 					}
 					biblioteka.snimiIznajmljivanje(BibliotekaMain.IZNAJMLJIVANJE_FAJL);
 					IznajmljivanjeForma.this.dispose();
 					IznajmljivanjeForma.this.setVisible(false);
-				
-					
-					
-				}
+			
+			
+			}});
+			
+		btnListaIznajmljenihPrimeraka.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SviIznajmljeniPrimerciProzor sp = new SviIznajmljeniPrimerciProzor(biblioteka);
+				sp.setVisible(true);
 			}
 		});
-		
+	
 	}
+		
+	
 	
 	
 	
@@ -208,8 +270,15 @@ public class IznajmljivanjeForma extends JFrame {
 		boxZaposleni.setSelectedItem(iznajmljivanje.getZaposleni().getId());
 		boxClan.setSelectedItem(iznajmljivanje.getClan().getId());
 		txtObrisan.setSelectedItem(iznajmljivanje.isObrisan());
-	
 				
+		
+		
+	    for(String k : iznajmljivanje.getPrimerakKnjige()) {
+	        		
+	        pronadjiCheckBox(k).setSelected(true);
+	        		
+	    }
+	        
 			
 }
 			
@@ -251,8 +320,22 @@ public class IznajmljivanjeForma extends JFrame {
 		}
 		return ok;
 	}
+
+
+
 	
 
+	private JCheckBox pronadjiCheckBox(String id) {
+		
+		for(JCheckBox i : boxLista) {
+			
+			if(i.getName().equals(id)) {
+				return i;
+			}
+		}
+		return checkBox;
+		
+	}
 }
 	
 
