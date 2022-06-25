@@ -230,40 +230,94 @@ public class ClanoviForma extends JFrame {
 			}
 		}
 		
+		
 		try {
-			Integer.parseInt(txtJmbg.getText().trim());
-		} catch (NumberFormatException e) {
-			poruka += "JMBG mora biti broj\n";
-			ok = false;
-		}
-		
-		
-		if(txtId.getText().trim().equals("")) {
+			if(txtId.getText().trim().equals(""));
+		} catch (NumberFormatException e){
 			poruka += "Morate uneti ID \n";
 			ok = false;
 		}
-		
-		if(txtIme.getText().trim().equals("")) {
+		try {
+			
+			if(txtIme.getText().trim().equals(""));
+				
+		}catch (NumberFormatException e){
+			 
 			poruka += "Morate uneti ime \n";
 			ok = false;
 		}
 		
-		if(txtPrezime.getText().trim().equals("")) {
+		
+		try {
+			
+			if(txtPrezime.getText().trim().equals(""));
+				
+		}catch (NumberFormatException e){
+			 
 			poruka += "Morate uneti prezime\n";
 			ok = false;
 		}
 		
 		
-		if (txtJmbg.getText().trim().equals("")) {
+		try {
+			
+			if (txtJmbg.getText().trim().equals(""));
+			
+		}catch (NumberFormatException e) {
+			 
 			poruka += "Morate uneti jmbg \n";
 			ok = false;
 		}
 		
-		
-		if (txtAdresa.getText().trim().equals("")) {
+		try {
+			
+			if (txtAdresa.getText().trim().equals(""));
+			
+		}catch (NumberFormatException e) {
+			 
 			poruka += "Morate uneti adresu\n";
 			ok = false;
 		}
+		
+		try {
+			
+			if (txtBrmesec.getText().trim().equals(""));
+			
+		}catch (NumberFormatException e) {
+			 
+			poruka += "Morate uneti broj meseci clanarine\n";
+			ok = false;
+		}
+		
+		try {
+			
+			if (txtBrkarte.getText().trim().equals(""));
+			
+		}catch (NumberFormatException e) {
+			 
+			poruka += "Morate uneti broj clanske karte\n";
+			ok = false;
+		}
+		
+		try {
+			
+			if (txtDatum.getText().trim().equals(""));
+			
+		}catch (NumberFormatException e) {
+			 
+			poruka += "Morate uneti datum poslednje uplate\n";
+			ok = false;
+		}
+		
+		try {
+			if ((Integer.parseInt(txtBrmesec.getText().trim())  > 0));
+			
+		}catch (NumberFormatException e) {
+			poruka += "Broj meseci clanarine pri upisu i izmeni mora da se inicijalizuje na 0";
+			ok = false;
+		}
+		
+		
 		
 		
 		if(ok == false) {

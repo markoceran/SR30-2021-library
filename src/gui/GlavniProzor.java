@@ -19,6 +19,7 @@ import guiDodatneFormeZaIzmenu.BibliotekaForma;
 import guiFormeZaPrikaz.ClanoviProzor;
 import guiFormeZaPrikaz.IznajmljivanjeProzor;
 import guiFormeZaPrikaz.KnjigeProzor;
+import guiFormeZaPrikaz.ObracunavanjeProzor;
 import guiFormeZaPrikaz.PrimerciKnjigaProzor;
 import guiFormeZaPrikaz.TipoviClanarineProzor;
 import guiFormeZaPrikaz.ZanroviProzor;
@@ -50,6 +51,7 @@ public final class GlavniProzor extends JFrame {
 	private JMenuItem izmeni = new JMenuItem("Izmeni");
 	
 	
+	
 	private Biblioteka biblioteka;
 	private Zaposleni prijavljeniKorisnik;
 	private final JButton btnNewButton = new JButton("Zaposleni");
@@ -57,6 +59,7 @@ public final class GlavniProzor extends JFrame {
 	private final JButton btnNewButton_2 = new JButton("Članovi biblioteke");
 	private final JButton btnNewButton_3 = new JButton("Knjige");
 	private final JButton btnNewButton_4 = new JButton("Iznajmljivanje");
+	private final JButton btnObracun = new JButton("Obračunavanje");
 	private final JLabel lblNewLabel = new JLabel();
 	
 	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik) {
@@ -114,6 +117,10 @@ public final class GlavniProzor extends JFrame {
 		getContentPane().add(btnNewButton_3, "cell 2 3,grow");
 		
 		getContentPane().add(btnNewButton_4, "cell 1 2 1 2,grow");
+		
+		getContentPane().add(btnObracun, "cell 1 2 1 2,grow");
+		btnObracun.setFont(new Font("Gill Sans MT", Font.PLAIN, 21));
+		btnObracun.setBackground(new Color(240, 248, 255));
 		
 		
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -175,6 +182,13 @@ public final class GlavniProzor extends JFrame {
 			}
 		});
 		
+		btnObracun.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ObracunavanjeProzor o = new ObracunavanjeProzor(biblioteka);
+				o.setVisible(true);
+			}
+		});
 		
 		if(prijavljeniKorisnik.getUloga().equals(Uloga.values()[0])) {
 						btnNewButton.setEnabled(false);
