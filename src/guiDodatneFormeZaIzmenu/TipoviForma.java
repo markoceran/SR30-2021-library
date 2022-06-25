@@ -43,12 +43,12 @@ public class TipoviForma extends JFrame {
 		this.biblioteka = biblioteka;
 		this.tip = tip;
 		if(tip == null) {
-			setTitle("Dodavanje tipa Ä�lanarine :");
+			setTitle("Dodavanje tipa članarine :");
 		}else {
-			setTitle("Izmena podataka tipa Ä�lanarine [" + tip.getId() + "]");
+			setTitle("Izmena podataka tipa članarine [" + tip.getId() + "]");
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350,350);
+		setSize(450,300);
 		setLocationRelativeTo(null);
 		gui();
 		initAction();
@@ -59,11 +59,12 @@ public class TipoviForma extends JFrame {
 
 	private void gui() {
 		
-		MigLayout layout = new MigLayout("wrap 2", "[][]", "[][][][][]20[]");
+		MigLayout layout = new MigLayout("wrap 2", "[]10[]", "[]10[]10[]10[]20[]20[]");
 		setLayout(layout);
 		
 		txtObrisan.addItem(true);
 		txtObrisan.addItem(false);
+		txtObrisan.setSelectedItem(false);
 		
 		
 		

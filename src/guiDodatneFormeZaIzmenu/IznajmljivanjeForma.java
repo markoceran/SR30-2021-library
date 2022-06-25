@@ -56,6 +56,8 @@ public class IznajmljivanjeForma extends JFrame {
 	
 	private JCheckBox checkBox;
 	private ArrayList<JCheckBox> boxLista = new ArrayList<JCheckBox>();
+	
+	
 
 	public IznajmljivanjeForma(Biblioteka biblioteka, Iznajmljivanje iznajmljivanje) {
 		
@@ -67,7 +69,7 @@ public class IznajmljivanjeForma extends JFrame {
 			setTitle("Izmena podataka o iznajmljivanju");
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(800,700);
+		setSize(550, 800);
 		setLocationRelativeTo(null);
 		gui();
 		initAction();
@@ -78,11 +80,12 @@ public class IznajmljivanjeForma extends JFrame {
 
 	private void gui() {
 		
-		MigLayout layout = new MigLayout("wrap 2", "[][]", "[][][][][]20[]");
+		MigLayout layout = new MigLayout("wrap 2", "15[]15[]", "[]10[]10[]10[]10[]30[]");
 		setLayout(layout);
 		
 		txtObrisan.addItem(true);
 		txtObrisan.addItem(false);
+		txtObrisan.setSelectedItem(false);
 		
 		
 		for(Zaposleni z : biblioteka.sviNeobrisaniZaposleni()) {
@@ -93,9 +96,6 @@ public class IznajmljivanjeForma extends JFrame {
 		for(ClanBiblioteke c : biblioteka.sviNeobrisaniClanovi()) {
 			boxClan.addItem(c.getId());
 		}
-		
-		
-		
 		
 		
 		
@@ -117,7 +117,8 @@ public class IznajmljivanjeForma extends JFrame {
 		
 		
 		
-			
+/*Dodavanje checkBox-ova***************************************************************************************************************/		
+		
 		for(PrimerakKnjige p : biblioteka.sviNeobrisaniPrimerci()) {
 			
 				String i = String.valueOf(p.getId());
@@ -127,21 +128,16 @@ public class IznajmljivanjeForma extends JFrame {
 				boxLista.add(checkBox);
 				
 				
-					
-				
 					if(p.isIznajmljena()==false) {
 						
 						add(checkBox);
 					
-					}
-					
+					}	
 					
 			}
 	        
 				
-				
-		
-		
+			
 		if(iznajmljivanje != null) {
 						
 			for(String x : iznajmljivanje.getPrimerakKnjige()) {
@@ -153,6 +149,8 @@ public class IznajmljivanjeForma extends JFrame {
 			popuniPolja();
 		
 		}
+		
+/************************************************************************************************************************************/
 		
 		
 		add(new JLabel());
@@ -190,10 +188,15 @@ public class IznajmljivanjeForma extends JFrame {
 					
 					
 					
+					/*Ako je checkbox cekiran primerak postaje iznajmljen********************************/
+					
 					for(JCheckBox i : boxLista) {
 						
 					
-						if(i.isSelected()==true) {
+						if(i.isSelected() == true) {
+							
+							//primerci-lista primeraka koji su iznajmljeni za konkretno iznajmljivanje (prikaz u tabeli prozora)
+							
 				        	primerci.add(i.getName());
 				        	int idPrimerka = Integer.parseInt(i.getName());
 				        	PrimerakKnjige p = biblioteka.pronadjiPrimerak(idPrimerka);
@@ -203,19 +206,29 @@ public class IznajmljivanjeForma extends JFrame {
 						
 					}
 					
+					/*************************************************************************************/
 
 					
-					if(iznajmljivanje == null) {
+					if(iznajmljivanje == null) 
+					{
 						Iznajmljivanje novo = new Iznajmljivanje (id, datumIz, datumVr, zaposleni, clan, primerci , obrisan);
 						biblioteka.dodajIznajmljivanje(novo);
+						
 					}else {
 						
+						
+						/*************************************************************************************/
+						
+						//Izmena podataka - iznajmljivanje != null
 						
 						for(String b : iznajmljivanje.getPrimerakKnjige()) {
 							
 							JCheckBox x = pronadjiCheckBox(b);
 							
-							if(x.isSelected()==false) {
+							//Update izmena checkbox-ova
+							
+							if(x.isSelected() == false) {
+								
 							    PrimerakKnjige p = biblioteka.pronadjiPrimerak(Integer.parseInt(x.getName()));
 							    p.setIznajmljena(false);
 							 
@@ -223,6 +236,8 @@ public class IznajmljivanjeForma extends JFrame {
 							           
 						   }
 						}	
+						
+						/*************************************************************************************/
 						
 						
 						iznajmljivanje.setId(id);
@@ -234,18 +249,19 @@ public class IznajmljivanjeForma extends JFrame {
 						iznajmljivanje.setObrisan(obrisan);
 						
 					  }
-
-						
-						
-						
-
-					}
+	
+					
 					biblioteka.snimiIznajmljivanje(BibliotekaMain.IZNAJMLJIVANJE_FAJL);
 					IznajmljivanjeForma.this.dispose();
 					IznajmljivanjeForma.this.setVisible(false);
-			
-			
+					
+
+					}
+				
 			}});
+		
+		
+		/*************************************************************************************/
 			
 		btnListaIznajmljenihPrimeraka.addActionListener(new ActionListener() {
 			@Override
@@ -255,14 +271,15 @@ public class IznajmljivanjeForma extends JFrame {
 			}
 		});
 	
+		/*************************************************************************************/
+		
 	}
 		
 	
 	
 	
-	
-	
 	private void popuniPolja() {
+		
 		
 		txtID.setText(String.valueOf(iznajmljivanje.getId()));
 		txtDatumIznajmljivanja.setText(String.valueOf(iznajmljivanje.getDatumIznajmljivanja()));
@@ -272,18 +289,17 @@ public class IznajmljivanjeForma extends JFrame {
 		txtObrisan.setSelectedItem(iznajmljivanje.isObrisan());
 				
 		
-		
+		/*************************************************************************************/
 	    for(String k : iznajmljivanje.getPrimerakKnjige()) {
 	        		
 	        pronadjiCheckBox(k).setSelected(true);
 	        		
 	    }
-	        
+	    /*************************************************************************************/    
 			
 }
 			
 
-	
 	
 	
 	private boolean validacija() {

@@ -42,12 +42,12 @@ public class ZanroviForma extends JFrame {
 		this.biblioteka = biblioteka;
 		this.zanr = zanr;
 		if(zanr == null) {
-			setTitle("Dodavanje Å¾anra knjige :");
+			setTitle("Dodavanje žanra knjige :");
 		}else {
-			setTitle("Izmena podataka Å¾anra [" + zanr.getOznaka() + "]");
+			setTitle("Izmena podataka žanra [" + zanr.getOznaka() + "]");
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(350, 350);
+		setSize(400, 350);
 		setLocationRelativeTo(null);
 		gui();
 		initAction();
@@ -58,11 +58,12 @@ public class ZanroviForma extends JFrame {
 
 	private void gui() {
 		
-		MigLayout layout = new MigLayout("wrap 2", "[][]", "[][][][][]20[]");
+		MigLayout layout = new MigLayout("wrap 2", "[]15[]", "[]10[]10[]10[]20[]20[]");
 		setLayout(layout);
 		
 		boxObrisan.addItem(true);
 		boxObrisan.addItem(false);
+		boxObrisan.setSelectedItem(false);
 		
 
 		if(zanr != null) {

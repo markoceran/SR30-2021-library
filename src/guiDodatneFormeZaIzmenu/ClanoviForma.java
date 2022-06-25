@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.LineBreakMeasurer;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -37,15 +38,15 @@ public class ClanoviForma extends JFrame {
 	private JTextField txtAdresa = new JTextField(25);
 	private JLabel lbPol = new JLabel("Pol");
 	private JComboBox<String> boxPol = new JComboBox<String>();
-	private JLabel lbBrkarte = new JLabel ("Broj Ä�lanske karte");
+	private JLabel lbBrkarte = new JLabel ("Broj članske karte");
 	private JTextField txtBrkarte = new JTextField(25);
 	private JLabel lbDatum = new JLabel("Datum poslednje uplate");
 	private JTextField txtDatum = new JTextField(25);
-	private JLabel lbBrmesec = new JLabel("Broj meseci Ä�lanarine");
+	private JLabel lbBrmesec = new JLabel("Broj meseci članarine");
 	private JTextField txtBrmesec = new JTextField(25);
 	private JLabel lbAktivan = new JLabel("Aktivan");
 	private JComboBox<Boolean> boxAktivan = new JComboBox<Boolean>();
-	private JLabel lbTipclanarine = new JLabel("Tip Ä�lanarine");
+	private JLabel lbTipclanarine = new JLabel("Tip članarine");
 	private JComboBox<Integer> boxTipclanarine = new JComboBox<Integer>();
 	private JLabel lbObrisan = new JLabel("Obrisan");
 	private JComboBox<Boolean> boxObrisan = new JComboBox<Boolean>();
@@ -62,12 +63,12 @@ public class ClanoviForma extends JFrame {
 		this.biblioteka = biblioteka;
 		this.clan = clan;
 		if(clan == null) {
-			setTitle("Dodavanje Ä�lana :");
+			setTitle("Dodavanje člana :");
 		}else {
-			setTitle("Izmena podataka Ä�lana [" + clan.getId() + "]");
+			setTitle("Izmena podataka člana [" + clan.getId() + "]");
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(550, 550);
+		setSize(550, 580);
 		setLocationRelativeTo(null);
 		gui();
 		initAction();
@@ -79,15 +80,18 @@ public class ClanoviForma extends JFrame {
 
 	private void gui() {
 		
-		MigLayout layout = new MigLayout("wrap 2", "[][]", "[][][][][]20[]");
+		MigLayout layout = new MigLayout("wrap 2", "[]15[]", "[]10[]10[]10[]15[]20[]");
 		setLayout(layout);
 		
 		boxObrisan.addItem(true);
 		boxObrisan.addItem(false);
+		boxObrisan.setSelectedItem(false);
 		boxPol.addItem("MUSKI");
 		boxPol.addItem("ZENSKI");
 		boxAktivan.addItem(true);
 		boxAktivan.addItem(false);
+		boxAktivan.setSelectedItem(false);
+		
 		
 		for(TipClanarine tip : biblioteka.sviNeobrisaniTipovi()) {
 			boxTipclanarine.addItem(tip.getId());
@@ -303,7 +307,7 @@ public class ClanoviForma extends JFrame {
 			
 			if (txtDatum.getText().trim().equals(""));
 			
-		}catch (NumberFormatException e) {
+		}catch (DateTimeParseException e) {
 			 
 			poruka += "Morate uneti datum poslednje uplate\n";
 			ok = false;

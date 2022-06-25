@@ -35,8 +35,9 @@ public class SviIznajmljeniPrimerciForma extends JFrame {
 		setTitle("Dodavanje iznajmljenog primerka :");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400,200);
+		setSize(400,170);
 		setLocationRelativeTo(null);
+		
 		gui();
 		initAction();
 
@@ -45,12 +46,12 @@ public class SviIznajmljeniPrimerciForma extends JFrame {
 	
 	private void gui() {
 		
-		MigLayout layout = new MigLayout("wrap 2", "[]", "[]");
+		MigLayout layout = new MigLayout("wrap 2", "120[][][]", "30[]");
 		setLayout(layout);
 		
 		
 		for(PrimerakKnjige p : biblioteka.sviNeobrisaniPrimerci()) {
-			if(p.isIznajmljena()==false) {
+			if(p.isIznajmljena() == false) {
 				
 				primerciCombo.addItem(String.valueOf(p.getId()) + "- Knjiga: " + p.getKnjigaKojojPrimerakPripada().getOriginalniNaslov());
 				

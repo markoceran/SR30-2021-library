@@ -27,13 +27,13 @@ public class PrimerciForma extends JFrame {
 	private JTextField txtBrojStrana = new JTextField(25);
 	private JLabel lbTvrdPovez = new JLabel("Tvrd povez");
 	private JComboBox<Boolean> boxTvrdeKorice = new JComboBox<Boolean>();
-	private JLabel lbGodina = new JLabel("Godina Ã…Â¡tampanja");
+	private JLabel lbGodina = new JLabel("Godina štampanja");
 	private JTextField txtGodina = new JTextField(25);
 	private JLabel lbIznajmljen = new JLabel("Iznajmljen");
 	private JComboBox<Boolean> boxIznajmljen = new JComboBox<Boolean>();
 	private JLabel lbKnjiga = new JLabel("Knjiga kojoj pripada");
 	private JComboBox<Integer> boxKnjiga = new JComboBox<Integer>();
-	private JLabel lbJezik = new JLabel("Jezik Ã…Â¡tampanja");
+	private JLabel lbJezik = new JLabel("Jezik štampanja");
 	private JTextField txtJezik = new JTextField(25);
 	private JLabel lbObrisan = new JLabel("Obrisan");
 	private JComboBox<Boolean> txtObrisan = new JComboBox<Boolean>();
@@ -67,17 +67,20 @@ public class PrimerciForma extends JFrame {
 
 	private void gui() {
 		
-		MigLayout layout = new MigLayout("wrap 2", "[][]", "[][][][][]20[]");
+		MigLayout layout = new MigLayout("wrap 2", "[]15[]", "[]10[]10[]10[]15[]20[]");
 		setLayout(layout);
 		
 		txtObrisan.addItem(true);
 		txtObrisan.addItem(false);
+		txtObrisan.setSelectedItem(false);
 		boxTvrdeKorice.addItem(true);
 		boxTvrdeKorice.addItem(false);
+		boxTvrdeKorice.setSelectedItem(false);
 		boxIznajmljen.addItem(true);
 		boxIznajmljen.addItem(false);
+		boxIznajmljen.setSelectedItem(false);
 		
-		boxKnjiga.addItem(0);
+		
 		for(Knjiga knjiga : biblioteka.sveNeobrisaneKnjige()) {
 			boxKnjiga.addItem(knjiga.getId());
 		}

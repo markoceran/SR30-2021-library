@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.Month;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import osobe.ClanBiblioteke;
 import osobe.Uloga;
 import osobe.Zaposleni;
 import biblioteka.Biblioteka;
@@ -24,6 +27,7 @@ import guiFormeZaPrikaz.PrimerciKnjigaProzor;
 import guiFormeZaPrikaz.TipoviClanarineProzor;
 import guiFormeZaPrikaz.ZanroviProzor;
 import guiFormeZaPrikaz.ZaposleniProzor;
+import main.BibliotekaMain;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -63,6 +67,7 @@ public final class GlavniProzor extends JFrame {
 	private final JLabel lblNewLabel = new JLabel();
 	
 	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik) {
+		
 		getContentPane().setBackground(new Color(211, 211, 211));
 		this.biblioteka = biblioteka;
 		this.prijavljeniKorisnik = prijavljeniKorisnik;
@@ -72,12 +77,21 @@ public final class GlavniProzor extends JFrame {
 		setLocationRelativeTo(null);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GlavniProzor.class.getResource("/slike/download.png")));
 		setResizable(false);
+		
 		gui();
+		initAction();
+		
+		/********************************/
+		
+		proveriAktivnostClanova();
+		
+		/********************************/
 		
 	}
 	
 	
 	private void gui() {
+		
 		setJMenuBar(mainMenu);
 		mainMenu.add(vise);
 		mainMenu.add(bibliotekaMenu);
@@ -91,6 +105,11 @@ public final class GlavniProzor extends JFrame {
 		
 		MigLayout mig = new MigLayout("wrap 1", "[250px:n,grow][360px:n,grow][250px:n]", "[200px:n,grow][50px:n][80px:n][80px:n][]");
 		getContentPane().setLayout(mig);
+		
+		if(prijavljeniKorisnik.getUloga().equals(Uloga.values()[0])) {
+			btnNewButton.setEnabled(false);
+		}
+		
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel.setIcon(new ImageIcon(GlavniProzor.class.getResource("/slike/library.jpg")));
 		
@@ -122,7 +141,12 @@ public final class GlavniProzor extends JFrame {
 		btnObracun.setFont(new Font("Gill Sans MT", Font.PLAIN, 21));
 		btnObracun.setBackground(new Color(240, 248, 255));
 		
+	}
 		
+	
+	
+	private void initAction() {
+			
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClanoviProzor c = new ClanoviProzor(biblioteka);
@@ -188,12 +212,176 @@ public final class GlavniProzor extends JFrame {
 				ObracunavanjeProzor o = new ObracunavanjeProzor(biblioteka);
 				o.setVisible(true);
 			}
-		});
+		});	
 		
-		if(prijavljeniKorisnik.getUloga().equals(Uloga.values()[0])) {
-						btnNewButton.setEnabled(false);
-		}
 	}
 	
-
+	
+	private void proveriAktivnostClanova(){
+		
+		for(ClanBiblioteke c : biblioteka.sviNeobrisaniClanovi()) {
+			
+			int brojMeseci = c.getBrojMeseciClanarine();
+			
+			
+			LocalDate datumPoslednjeUplate = c.getDatumPoslednjeUplate();
+			int datumPoslednjeUplateDan = datumPoslednjeUplate.getDayOfMonth();
+			Month getDatumPoslednjeUplateMesec = datumPoslednjeUplate.getMonth();
+			
+			int datumPoslednjeUplateMesec = 0;
+		
+			LocalDate danasnjiDatum = LocalDate.now();
+		    int danasnjiDan = danasnjiDatum.getDayOfMonth();
+		    Month getDanasnjiMesec = danasnjiDatum.getMonth();
+		    
+		    int danasnjiMesec = 0;
+		    
+		    
+		    switch(getDatumPoslednjeUplateMesec.toString()) {
+		    
+		    case "JANUARY": 
+		    	
+		    	datumPoslednjeUplateMesec = 1;
+		    	break;
+		    
+		    case "FEBRUARY": 
+		    	
+		    	datumPoslednjeUplateMesec = 2;
+		    	break;
+		    	
+		    case "MARCH": 
+			    	
+			    datumPoslednjeUplateMesec = 3;
+			    break;
+			    
+		    case "APRIL": 
+		    	
+			    datumPoslednjeUplateMesec = 4;
+			    break;
+			    
+		    case "MAY": 
+		    	
+			    datumPoslednjeUplateMesec = 5;
+			    break;
+			    
+		    case "JUNE": 
+		    	
+			    datumPoslednjeUplateMesec = 6;
+			    break;
+			    
+		    case "JULY": 
+		    	
+			    datumPoslednjeUplateMesec = 7;
+			    break;
+			    
+		    case "AUGUST": 
+		    	
+			    datumPoslednjeUplateMesec = 8;
+			    break;
+		    
+		    case "SEPTEMBER": 
+		    	
+			    datumPoslednjeUplateMesec = 9;
+			    break;
+			    
+		    case "OCTOBER": 
+		    	
+			    datumPoslednjeUplateMesec = 10;
+			    break;
+			    
+		    case "NOVEMBER": 
+		    	
+			    datumPoslednjeUplateMesec = 11;
+			    break;
+			    
+		    case "DECEMBER": 
+		    	
+			    datumPoslednjeUplateMesec = 12;
+			    break;
+		    }
+		    
+		    //System.out.println(datumPoslednjeUplateMesec);
+		    
+		    
+		    switch(getDanasnjiMesec.toString()) {
+		    
+		    case "JANUARY": 
+		    	
+		    	danasnjiMesec = 1;
+		    	break;
+		    
+		    case "FEBRUARY": 
+		    	
+		    	danasnjiMesec = 2;
+		    	break;
+		    	
+		    case "MARCH": 
+			    	
+		    	danasnjiMesec = 3;
+			    break;
+			    
+		    case "APRIL": 
+		    	
+		    	danasnjiMesec = 4;
+			    break;
+			    
+		    case "MAY": 
+		    	
+		    	danasnjiMesec = 5;
+			    break;
+			    
+		    case "JUNE": 
+		    	
+		    	danasnjiMesec = 6;
+			    break;
+			    
+		    case "JULY": 
+		    	
+		    	danasnjiMesec = 7;
+			    break;
+			    
+		    case "AUGUST": 
+		    	
+		    	danasnjiMesec = 8;
+			    break;
+		    
+		    case "SEPTEMBER": 
+		    	
+		    	danasnjiMesec = 9;
+			    break;
+			    
+		    case "OCTOBER": 
+		    	
+		    	danasnjiMesec = 10;
+			    break;
+			    
+		    case "NOVEMBER": 
+		    	
+		    	danasnjiMesec = 11;
+			    break;
+			    
+		    case "DECEMBER": 
+		    	
+		    	danasnjiMesec = 12;
+			    break;
+		    }
+		    
+		    //System.out.println(danasnjiMesec);
+		    
+		    
+		    if((datumPoslednjeUplateDan == danasnjiDan) && (Math.abs(datumPoslednjeUplateMesec - danasnjiMesec) == brojMeseci)) {
+		    	
+		    	c.setAktivan(false);
+		    	c.setBrojMeseciClanarine(0);
+		    	biblioteka.snimiClanove(BibliotekaMain.CLANOVI_FAJL);
+		    	
+		    }
+		    
+		    
+		    
+		}
+		
+	}
+	
 }
+

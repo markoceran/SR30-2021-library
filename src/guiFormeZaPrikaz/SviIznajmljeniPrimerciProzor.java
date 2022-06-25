@@ -59,6 +59,8 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 		toolBar.add(btnRemove);
 		
 		
+		/*************************************************************************************/
+		
 		//Lista iznajmljenih primeraka
 		for(PrimerakKnjige j : biblioteka.sviNeobrisaniPrimerci()) {
 			if(j.isIznajmljena()==true && j.isObrisan()==false) {
@@ -66,8 +68,9 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 				sviIznajmljeni.add(j);
 				
 			}
-			
 		}
+		
+		/*************************************************************************************/
 		
 		
 		String[] zaglavlja = new String[] {"ID", "Broj strana", "Tvrd povez", "Godina štampanja", "Iznajmljena", "Knjiga kojoj pripada", "Jezik Štampanja", "Obrisan"};
@@ -104,8 +107,11 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 			initAction();
 	
 		}
+	
 		
 		private void initAction() {
+			
+			/*************************************************************************************/
 			
 			btnAdd.addActionListener(new ActionListener() {
 				
@@ -117,13 +123,18 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 				}
 			});
 			
+			/*************************************************************************************/
 			
 			btnRemove.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
 					int red = primerciTabela.getSelectedRow();
+					
 					if(red == -1) {
+						
 						JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.", "Greska", JOptionPane.WARNING_MESSAGE);
+						
 					}else {
 						
 						int primerciId = (int) tableModel.getValueAt(red, 0);
@@ -131,15 +142,20 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 						
 						int select = JOptionPane.showConfirmDialog(null, 
 								"Da li ste sigurni da zelite da obrisete iznajmljeni primerak?", 
-								primerciId + " - Porvrda brisanja", JOptionPane.YES_NO_OPTION);
+								primerciId + " - Potvrda brisanja", JOptionPane.YES_NO_OPTION);
+						
 						if(select == JOptionPane.YES_OPTION) {
+							
 							p.setIznajmljena(false);
 							tableModel.removeRow(red);
 							biblioteka.snimiPrimerkeKnjiga(BibliotekaMain.PRIMERCIKNJIGA_FAJL);
+							
 						}
 					}
 				}
 			});
+			
+			/*************************************************************************************/
 			
 	}
 }

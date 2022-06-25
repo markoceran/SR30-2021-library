@@ -45,7 +45,7 @@ public class BibliotekaForma extends JFrame {
 		setTitle("Izmena podataka biblioteke :");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 200);
+		setSize(400, 210);
 		setLocationRelativeTo(null);
 		gui();
 		initAction();
@@ -54,7 +54,7 @@ public class BibliotekaForma extends JFrame {
 	
 	private void gui() {
 		
-		MigLayout layout = new MigLayout("wrap 2", "[][]", "[][][][][]20[]");
+		MigLayout layout = new MigLayout("wrap 2", "[]15[]", "[]10[]10[]10[]10[]30[]");
 		setLayout(layout);
 		
 		

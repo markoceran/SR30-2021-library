@@ -38,6 +38,7 @@ public class ClanoviProzor extends JFrame {
 	
 
 	public ClanoviProzor(Biblioteka biblioteka) {
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ClanoviProzor.class.getResource("/slike/reader.png")));
 		this.biblioteka = biblioteka;
 		setTitle("Članovi biblioteke");

@@ -75,6 +75,7 @@ public class KnjigeForma extends JFrame {
 		
 		txtObrisan.addItem(true);
 		txtObrisan.addItem(false);
+		txtObrisan.setSelectedItem(false);
 		
 		for(ZanrKnjige zanr : biblioteka.sviNeobrisaniZanrovi()) {
 			boxZanr.addItem(zanr.getOznaka());

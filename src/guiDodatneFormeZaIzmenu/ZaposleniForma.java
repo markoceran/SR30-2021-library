@@ -36,9 +36,9 @@ public class ZaposleniForma extends JFrame {
 	private JTextField txtAdresa = new JTextField(25);
 	private JLabel lbPol = new JLabel("Pol");
 	private JComboBox<Pol> boxPol = new JComboBox<Pol>(Pol.values());
-	private JLabel lbKorisnickoIme = new JLabel ("KorisniÄ�ko ime");
+	private JLabel lbKorisnickoIme = new JLabel ("Korisničko ime");
 	private JTextField txtKorisnickoIme = new JTextField(25);
-	private JLabel lbLozinka = new JLabel("KorisniÄ�ka lozinka");
+	private JLabel lbLozinka = new JLabel("Korisnička lozinka");
 	private JPasswordField txtLozinka = new JPasswordField(25);
 	private JLabel lbPlata = new JLabel("Plata");
 	private JTextField txtPlata = new JTextField(25);
@@ -76,12 +76,12 @@ public class ZaposleniForma extends JFrame {
 
 	private void gui() {
 		
-		MigLayout layout = new MigLayout("wrap 2", "[][]", "[][][][][]20[]");
+		MigLayout layout = new MigLayout("wrap 2", "[]15[]", "[]10[]10[]10[]20[]20[]");
 		setLayout(layout);
 		
 		boxObrisan.addItem(true);
 		boxObrisan.addItem(false);
-		
+		boxObrisan.setSelectedItem(false);
 	
 		
 		if(zaposleni != null) {
