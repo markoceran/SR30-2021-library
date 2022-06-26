@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import biblioteka.Biblioteka;
+import entiteti.Iznajmljivanje;
 import entiteti.PrimerakKnjige;
 import guiDodatneFormeZaIzmenu.PrimerciForma;
 import guiDodatneFormeZaIzmenu.SviIznajmljeniPrimerciForma;
@@ -148,7 +149,25 @@ public class SviIznajmljeniPrimerciProzor extends JFrame {
 							
 							p.setIznajmljena(false);
 							tableModel.removeRow(red);
+							
+							//Element koji se uklonio iz liste iznajmljenih primeraka(nije vise iznajmljen) treba i iz iznajmljivanja
+							for(Iznajmljivanje i : biblioteka.svaNeobrisanaIznajmljivanja()) {
+								
+								String el = String.valueOf(p.getId()) ;
+								int index = i.getPrimerakKnjige().indexOf(el);
+								i.getPrimerakKnjige().remove(index);
+								
+								//Ako u nekom iznajmljivanju vise ne postoji primeraka
+								if(i.getPrimerakKnjige().size() == 0) {
+									
+									i.setObrisan(true);
+									
+								}
+							}
+							
 							biblioteka.snimiPrimerkeKnjiga(BibliotekaMain.PRIMERCIKNJIGA_FAJL);
+							biblioteka.snimiIznajmljivanje(BibliotekaMain.IZNAJMLJIVANJE_FAJL);
+							
 							
 						}
 					}
