@@ -83,6 +83,7 @@ public class PrimerciForma extends JFrame {
 		
 		for(Knjiga knjiga : biblioteka.sveNeobrisaneKnjige()) {
 			boxKnjiga.addItem(knjiga.getId());
+			boxKnjiga.setToolTipText(knjiga.getNaslov());
 		}
 		
 		if(primerak != null) {

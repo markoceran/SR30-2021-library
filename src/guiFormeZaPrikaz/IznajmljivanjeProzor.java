@@ -75,8 +75,8 @@ public class IznajmljivanjeProzor extends JFrame {
 			sadrzaj[i][0] = iznajmljivanje.getId();
 			sadrzaj[i][1] = iznajmljivanje.getDatumIznajmljivanja();
 			sadrzaj[i][2] = iznajmljivanje.getDatumVracanja();
-			sadrzaj[i][3] = iznajmljivanje.getZaposleni();
-			sadrzaj[i][4] = iznajmljivanje.getClan();
+			sadrzaj[i][3] = iznajmljivanje.getZaposleni().getKorisnickoIme();
+			sadrzaj[i][4] = "[" + iznajmljivanje.getClan().getBrojClanskeKarte() + "] -" + iznajmljivanje.getClan().getIme() + " " + iznajmljivanje.getClan().getPrezime();
 			
 			int n = iznajmljivanje.getPrimerakKnjige().size();
 			String unos = "";
@@ -86,7 +86,7 @@ public class IznajmljivanjeProzor extends JFrame {
 				
 				lista = iznajmljivanje.getPrimerakKnjige();
 				int el = Integer.parseInt(lista.get(j));
-				unos = unos + "[" + el + "]" +  "- Knjiga: " + biblioteka.pronadjiPrimerak(el).getKnjigaKojojPrimerakPripada().getOriginalniNaslov() +". ";
+				unos = unos + "[" + el + "]" +  " - Naslov: " + biblioteka.pronadjiPrimerak(el).getKnjigaKojojPrimerakPripada().getNaslov();
 				
 			}
 			sadrzaj[i][5] = unos;

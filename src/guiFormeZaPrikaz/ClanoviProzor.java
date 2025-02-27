@@ -80,7 +80,7 @@ public class ClanoviProzor extends JFrame {
 			sadrzaj[i][7] = clan.getDatumPoslednjeUplate();
 			sadrzaj[i][8] = clan.getBrojMeseciClanarine();
 			sadrzaj[i][9] = clan.isAktivan();
-			sadrzaj[i][10] = clan.getTipClanarine();
+			sadrzaj[i][10] = clan.getTipClanarine().getNaziv();
 			sadrzaj[i][11] = clan.isObrisan();
 			
 			

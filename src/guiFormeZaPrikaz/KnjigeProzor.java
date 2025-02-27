@@ -75,7 +75,7 @@ public class KnjigeProzor extends JFrame {
 			sadrzaj[i][3] = knjiga.getPisac();
 			sadrzaj[i][4] = knjiga.getGodinaObjavljivanja();
 			sadrzaj[i][5] = knjiga.getOpisKnjige();
-			sadrzaj[i][6] = knjiga.getZanr();
+			sadrzaj[i][6] = knjiga.getZanr().getOpis();
 			sadrzaj[i][7] = knjiga.getJezikOriginala();
 			sadrzaj[i][8] = knjiga.isObrisan();
 	

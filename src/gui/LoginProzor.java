@@ -63,8 +63,8 @@ public class LoginProzor extends JFrame {
 		getContentPane().add(btnRegistracija);
 		
 		
-		txtKorisnickoIme.setText("petarp");
-		pfLozinka.setText("12345");
+//		txtKorisnickoIme.setText("petarp");
+//		pfLozinka.setText("12345");
 		getRootPane().setDefaultButton(btnOk);
 		
 	}

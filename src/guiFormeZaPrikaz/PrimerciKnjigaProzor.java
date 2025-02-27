@@ -59,7 +59,7 @@ public class PrimerciKnjigaProzor extends JFrame {
 		toolBar.add(btnRemove);
 		
 		
-		String[] zaglavlja = new String[] {"ID", "Broj strana", "Tvrd povez", "Godina štampanja", "Iznajmljena", "Knjiga kojoj pripada", "Jezik Štampanja", "Obrisan"};
+		String[] zaglavlja = new String[] {"ID", "Broj strana", "Tvrd povez", "Godina stampanja", "Iznajmljena", "Knjiga kojoj pripada", "Jezik stampanja", "Obrisan"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimerci().size()][zaglavlja.length];
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniPrimerci().size(); i++) {
@@ -69,7 +69,7 @@ public class PrimerciKnjigaProzor extends JFrame {
 			sadrzaj[i][2] = primerak.isTvrdPovez();
 			sadrzaj[i][3] = primerak.getGodinaStampanja();
 			sadrzaj[i][4] = primerak.isIznajmljena();
-			sadrzaj[i][5] = primerak.getKnjigaKojojPrimerakPripada();
+			sadrzaj[i][5] = "Naslov: " + primerak.getKnjigaKojojPrimerakPripada().getNaslov() + ", Pisac: " + primerak.getKnjigaKojojPrimerakPripada().getPisac();
 			sadrzaj[i][6] = primerak.getJezikStampanja();
 			sadrzaj[i][7] = primerak.isObrisan();
 			
