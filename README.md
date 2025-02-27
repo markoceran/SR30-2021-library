@@ -26,11 +26,11 @@ In Eclipse, locate project in the Package Explorer.
 Right-click on main class.
 Select Run As > Java Application.
 
-![prijava](assets/screenshots/prijava)
-![pocetna-stranica](assets/screenshots/pocetna-stranica)
-![knjige](assets/screenshots/knjige)
-![clanovi](assets/screenshots/clanovi)
-![primerci](assets/screenshots/primerci)
-![iznajmljivanje](assets/screenshots/iznajmljivanje)
-![obracun1](assets/screenshots/obracun1)
-![obracun2](assets/screenshots/obracun2)
+![prijava](assets/screenshots/prijava.png)
+![pocetna-stranica](assets/screenshots/pocetna-stranica.png)
+![knjige](assets/screenshots/knjige.png)
+![clanovi](assets/screenshots/clanovi.png)
+![primerci](assets/screenshots/primerci.png)
+![iznajmljivanje](assets/screenshots/iznajmljivanje.png)
+![obracun1](assets/screenshots/obracun1.png)
+![obracun2](assets/screenshots/obracun2.png)
