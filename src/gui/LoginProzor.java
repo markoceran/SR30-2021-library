@@ -26,8 +26,8 @@ public class LoginProzor extends JFrame {
 	private JTextField txtKorisnickoIme = new JTextField(20);
 	private JLabel lbLozinka = new JLabel("Lozinka");
 	private JPasswordField pfLozinka = new JPasswordField(20);
-	private JButton btnOk = new JButton("OK");
-	private JButton btnCancel = new JButton("Cancel");
+	private JButton btnOk = new JButton("Prijava");
+	private JButton btnCancel = new JButton("Otkaži");
 	private JButton btnRegistracija = new JButton("Registracija");
 	
 	private Biblioteka biblioteka;

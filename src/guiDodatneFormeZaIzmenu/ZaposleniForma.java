@@ -48,8 +48,8 @@ public class ZaposleniForma extends JFrame {
 	private JComboBox<Boolean> boxObrisan = new JComboBox<Boolean>();
 	
 	
-	private JButton btnOK = new JButton("OK");
-	private JButton btnCancel = new JButton("Cancel");
+	private JButton btnOK = new JButton("Registruj se");
+	private JButton btnCancel = new JButton("Otkaži");
 
 	private Zaposleni zaposleni;
 	private Biblioteka biblioteka;
